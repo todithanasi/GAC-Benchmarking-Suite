@@ -18,7 +18,6 @@
 # ===========================================================================
 
 
-######## How to get another variavble value =${AML_CUSTOM}
 
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
@@ -102,41 +101,60 @@ export BENCH_NEO4J_PAGERANK_ITERATIONS=10
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
-# Engine3
+# MARIADB
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 
+# Path of the root installation folder of MariaDB.
+export BENCH_MARIADB_ROOT=/usr/sbin/
+
+export BENCH_MARIADB_DATABASE_NAME=Graph
+
+# Username and password to access Neo4J shell.
+export BENCH_MARIADB_SHELL_USERNAME=user1
+export BENCH_MARIADB_SHELL_PASSWORD='p@$$w0rd'
+
+
 # ---------------------------------------------------------------------------
-# PageRank algorithm default settings in Engine3.
+# PageRank algorithm default settings in MariaDB.
 # ---------------------------------------------------------------------------
 
 
 # ---------------------------------------------------------------------------
-# Connected Components algorithm default settings in Engine3.
+# Connected Components algorithm default settings in MariaDB.
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
-# SSSP algorithm default settings in Engine3.
+# SSSP algorithm default settings in MariaDB.
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
-# Engine4
+# MARIADBCOL
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
 
+# Path of the root installation folder of MariaDB Columnar.
+export BENCH_MARIADBCOL_ROOT=/usr/sbin/
+
+export BENCH_MARIADBCOL_DATABASE_NAME=graph
+
+# Username and password to access Neo4J shell.
+export BENCH_MARIADBCOL_SHELL_USERNAME=user2
+export BENCH_MARIADBCOL_SHELL_PASSWORD='p@$$w0rd'
+
 # ---------------------------------------------------------------------------
-# PageRank algorithm default settings in Engine4.
+# PageRank algorithm default settings in MARIADBCOL.
 # ---------------------------------------------------------------------------
 
 
 # ---------------------------------------------------------------------------
-# Connected Components algorithm default settings in Engine4.
+# Connected Components algorithm default settings in MARIADBCOL.
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------
-# SSSP algorithm default settings in Engine4.
+# SSSP algorithm default settings in MARIADBCOL.
 # ---------------------------------------------------------------------------
