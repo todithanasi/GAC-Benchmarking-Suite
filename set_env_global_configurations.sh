@@ -28,6 +28,8 @@
 # ---------------------------------------------------------------------------
 
 export BENCH_LOGS_DIR=$PWD/logs
+export BENCH_SQL_SCRIPTS_DIR=$PWD/sql
+export BENCH_SHELL_SCRIPTS_DIR=$PWD/scripts
 
 # ---------------------------------------------------------------------------
 # ---------------------------------------------------------------------------
@@ -112,9 +114,11 @@ export BENCH_MARIADB_ROOT=/usr/sbin/
 export BENCH_MARIADB_DATABASE_NAME=Graph
 
 # Username and password to access Neo4J shell.
-export BENCH_MARIADB_SHELL_USERNAME=user1
+export BENCH_MARIADB_SHELL_USERNAME=user2
 export BENCH_MARIADB_SHELL_PASSWORD='p@$$w0rd'
 
+# Use "mysql" when just MariaDB is installed. For MariaDB columnar should be provided full path and the extra argument.
+export BENCH_MARIADB_MYSQL='/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf'
 
 # ---------------------------------------------------------------------------
 # PageRank algorithm default settings in MariaDB.
@@ -146,6 +150,11 @@ export BENCH_MARIADBCOL_DATABASE_NAME=graph
 export BENCH_MARIADBCOL_SHELL_USERNAME=user2
 export BENCH_MARIADBCOL_SHELL_PASSWORD='p@$$w0rd'
 
+# For MariaDB columnar should be provided full path and the extra argument.
+export BENCH_MARIADBCOL_MYSQL='/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf'
+
+
+export BENCH_MARIADBCOL_CPIMPORT='/usr/local/mariadb/columnstore/bin/cpimport'
 # ---------------------------------------------------------------------------
 # PageRank algorithm default settings in MARIADBCOL.
 # ---------------------------------------------------------------------------

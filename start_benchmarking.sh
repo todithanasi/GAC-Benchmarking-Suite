@@ -153,6 +153,9 @@ echo "**************************************************************************
 echo "*******************************************************************************"
 echo ""
 
+
+
+
 # ------------------------------------------------------------------------------
 # SPARK
 # ------------------------------------------------------------------------------
@@ -436,9 +439,9 @@ if [ "${BENCH_ENGINE}" == "MARIADB" ]; then
 
 			# Login into mariadb shell. Create Database and tables.
 			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
 			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
   			node_id INT NOT NULL) ENGINE=MEMORY;
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Edges (
@@ -447,15 +450,15 @@ if [ "${BENCH_ENGINE}" == "MARIADB" ]; then
 		        ) ENGINE=MEMORY;"
 			
 			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET FOREIGN_KEY_CHECKS = 0;
 			SET UNIQUE_CHECKS = 0;
 			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -475,7 +478,7 @@ if [ "${BENCH_ENGINE}" == "MARIADB" ]; then
 
 			# Create Index.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE INDEX idx_src ON Edges(src_id);
 CREATE INDEX idx_dest ON Edges(dest_id);
 CREATE INDEX idx_node ON Nodes(node_id);"
@@ -487,7 +490,7 @@ CREATE INDEX idx_node ON Nodes(node_id);"
 
 			# Create help tables.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE nextT (id INT NOT NULL, val double) ENGINE=MEMORY
    SELECT node_id AS id, CAST(0 AS double) AS  val FROM Nodes;
 CREATE INDEX idx_nextT ON nextT(id);
@@ -505,14 +508,14 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 		
 			# Enable DB features.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET UNIQUE_CHECKS = 1;
 			SET FOREIGN_KEY_CHECKS = 1;
 			COMMIT;
 			SET AUTOCOMMIT = 1;"
 
 			# Create Pagerank stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/PR.sql
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -522,7 +525,7 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 			# Run Pagerank algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CALL PagerankNew();"
 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
@@ -537,9 +540,9 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 
 			# Login into mariadb shell. Create Database and tables.
 			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
 			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
   			node_id INT NOT NULL) ENGINE=MEMORY;
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Edges (
@@ -548,15 +551,15 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 		        ) ENGINE=MEMORY;"
 			
 			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET FOREIGN_KEY_CHECKS = 0;
 			SET UNIQUE_CHECKS = 0;
 			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -565,9 +568,9 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 
 			# Create Primary Key.
 			# BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
 			# BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			# BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -576,7 +579,7 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 	
           		# Create Index.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE INDEX idx_src ON Edges(src_id);
 CREATE INDEX idx_dest ON Edges(dest_id);
 CREATE INDEX idx_node ON Nodes(node_id);"
@@ -588,7 +591,7 @@ CREATE INDEX idx_node ON Nodes(node_id);"
 
 			# Create help tables.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE nextT (id INT NOT NULL, val double) ENGINE=MEMORY
    SELECT node_id AS id, CAST(0 AS double) AS  val FROM Nodes;
 CREATE INDEX idx_nextT ON nextT(id);
@@ -607,14 +610,14 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 		
 			# Enable DB features.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET UNIQUE_CHECKS = 1;
 			SET FOREIGN_KEY_CHECKS = 1;
 			COMMIT;
 			SET AUTOCOMMIT = 1;"
 
 			# Create Pagerank stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/PR.sql
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -624,7 +627,7 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 			# Run Pagerank algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CALL PagerankNew();"
 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
@@ -638,9 +641,9 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 
 			# Login into mariadb shell. Create Database and tables.
 			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
 			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
   			node_id INT NOT NULL) ENGINE=MEMORY;
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Edges (
@@ -649,32 +652,32 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 		        ) ENGINE=MEMORY;"
 			
 			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET FOREIGN_KEY_CHECKS = 0;
 			SET UNIQUE_CHECKS = 0;
 			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 
 
 			# Create Primary Key.
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
 
           		# Create Index.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE INDEX idx_src ON Edges(src_id);
 CREATE INDEX idx_dest ON Edges(dest_id);
 CREATE INDEX idx_node ON Nodes(node_id);"
 
 			# Create help tables.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE nextT (id INT NOT NULL, val double) ENGINE=MEMORY
    SELECT node_id AS id, CAST(0 AS double) AS  val FROM Nodes;
 CREATE INDEX idx_nextT ON nextT(id);
@@ -687,17 +690,17 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 
 		
 			# Enable DB features.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET UNIQUE_CHECKS = 1;
 			SET FOREIGN_KEY_CHECKS = 1;
 			COMMIT;
 			SET AUTOCOMMIT = 1;"
 
 			# Create Pagerank stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/PR.sql
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
 			# Run Pagerank algorithm.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CALL PagerankNew();"
 
 	fi
@@ -714,10 +717,10 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 
 			# Login into mariadb shell. Create Database and tables.
 			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
 			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			set GLOBAL max_heap_table_size = 6294967295;  CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
   			node_id INT NOT NULL) ENGINE=MEMORY;
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Edges (
 		        src_id  int not null,
@@ -725,15 +728,15 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 		        ) ENGINE=MEMORY;"
 			
 			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET FOREIGN_KEY_CHECKS = 0;
 			SET UNIQUE_CHECKS = 0;
 			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -755,9 +758,9 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 
 			# Create Primary Key.
 			# BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
 			# BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			# BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -766,7 +769,7 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 
 			# Create Index.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE INDEX idx_src ON Edges(src_id);
 CREATE INDEX idx_dest ON Edges(dest_id);
 CREATE INDEX idx_node ON Nodes(node_id);"
@@ -778,7 +781,7 @@ CREATE INDEX idx_node ON Nodes(node_id);"
 
 			# Create help tables.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=MEMORY
 (SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM Nodes);
 CREATE INDEX idx_nextT ON nextT(id);
@@ -794,14 +797,14 @@ CREATE INDEX idx_message ON message(id);"
 		
 			# Enable DB features.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET UNIQUE_CHECKS = 1;
 			SET FOREIGN_KEY_CHECKS = 1;
 			COMMIT;
 			SET AUTOCOMMIT = 1;"
 
-			# Create Pagerank stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/CC.sql
+			# Create CC stored procedure.
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -811,7 +814,7 @@ CREATE INDEX idx_message ON message(id);"
 			# Run CC algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CALL WCC();"
 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
@@ -828,10 +831,10 @@ CREATE INDEX idx_message ON message(id);"
 
 			# Login into mariadb shell. Create Database and tables.
 			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
 			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			set GLOBAL max_heap_table_size = 6294967295;  CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
   			node_id INT NOT NULL) ENGINE=MEMORY;
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Edges (
 		        src_id  int not null,
@@ -839,15 +842,15 @@ CREATE INDEX idx_message ON message(id);"
 		        ) ENGINE=MEMORY;"
 			
 			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET FOREIGN_KEY_CHECKS = 0;
 			SET UNIQUE_CHECKS = 0;
 			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -856,9 +859,9 @@ CREATE INDEX idx_message ON message(id);"
 
 			# Create Primary Key.
 			# BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
 			# BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			# BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -867,7 +870,7 @@ CREATE INDEX idx_message ON message(id);"
 
 			# Create Index.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE INDEX idx_src ON Edges(src_id);
 CREATE INDEX idx_dest ON Edges(dest_id);
 CREATE INDEX idx_node ON Nodes(node_id);"
@@ -879,7 +882,7 @@ CREATE INDEX idx_node ON Nodes(node_id);"
 
 			# Create help tables.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=MEMORY
 (SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM Nodes);
 CREATE INDEX idx_nextT ON nextT(id);
@@ -895,14 +898,14 @@ CREATE INDEX idx_message ON message(id);"
 		
 			# Enable DB features.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET UNIQUE_CHECKS = 1;
 			SET FOREIGN_KEY_CHECKS = 1;
 			COMMIT;
 			SET AUTOCOMMIT = 1;"
 
-			# Create Pagerank stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/CC.sql
+			# Create CC stored procedure.
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
@@ -912,7 +915,7 @@ CREATE INDEX idx_message ON message(id);"
 			# Run CC algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CALL WCC();"
 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
@@ -925,9 +928,9 @@ CREATE INDEX idx_message ON message(id);"
 
 			# Login into mariadb shell. Create Database and tables.
 			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
 			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
   			node_id INT NOT NULL) ENGINE=MEMORY;
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Edges (
@@ -936,31 +939,31 @@ CREATE INDEX idx_message ON message(id);"
 		        ) ENGINE=MEMORY;"
 			
 			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET FOREIGN_KEY_CHECKS = 0;
 			SET UNIQUE_CHECKS = 0;
 			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 
 			# Create Primary Key.
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
 
 			# Create Index.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE INDEX idx_src ON Edges(src_id);
 CREATE INDEX idx_dest ON Edges(dest_id);
 CREATE INDEX idx_node ON Nodes(node_id);"
 
 			# Create help tables.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=MEMORY
 (SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM Nodes);
 CREATE INDEX idx_nextT ON nextT(id);
@@ -971,17 +974,17 @@ DROP INDEX IF EXISTS idx_message ON message;
 CREATE INDEX idx_message ON message(id);"
 			
 			# Enable DB features.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET UNIQUE_CHECKS = 1;
 			SET FOREIGN_KEY_CHECKS = 1;
 			COMMIT;
 			SET AUTOCOMMIT = 1;"
 
 			# Create CC stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/CC.sql
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
-			# Run Pagerank algorithm.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# Run CC algorithm.
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CALL WCC();"
 			
 	fi
@@ -998,9 +1001,9 @@ CREATE INDEX idx_message ON message(id);"
 
 			# Login into mariadb shell. Create Database and tables.
 			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
 			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
   			node_id INT NOT NULL) ENGINE=MEMORY;
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Edges (
@@ -1010,21 +1013,21 @@ CREATE INDEX idx_message ON message(id);"
 		        ) ENGINE=MEMORY;"
 			
 			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET FOREIGN_KEY_CHECKS = 0;
 			SET UNIQUE_CHECKS = 0;
 			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="insert into Nodes values(1);
+			echo "${BENCH_ALGORITHM} Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="insert into Nodes values(1);
 # insert into Nodes values(2);
 # insert into Nodes values(3);
 # insert into Nodes values(4);
@@ -1038,30 +1041,30 @@ CREATE INDEX idx_message ON message(id);"
 # insert into Edges values(5,3,1);"
 			# Create Primary Key.
 			# BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
 			# BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			# BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			# echo "SSSP Warmup $i Create Primary Key Total:  $BENCH_TOTAL_TIME"
-			# echo "SSSP Warmup $i Create Primary Key Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			# echo "${BENCH_ALGORITHM} Warmup $i Create Primary Key Total:  $BENCH_TOTAL_TIME"
+			# echo "${BENCH_ALGORITHM} Warmup $i Create Primary Key Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 			# Create Index.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE INDEX idx_src ON Edges(src_id);
 CREATE INDEX idx_dest ON Edges(dest_id);
 CREATE INDEX idx_node ON Nodes(node_id);"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Warmup $i Create Index Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Warmup $i Create Index Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} Warmup $i Create Index Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Warmup $i Create Index Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 
 			# Create help tables.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=MEMORY
 (SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM Nodes);
 CREATE INDEX idx_nextT ON nextT(id);
@@ -1070,35 +1073,35 @@ CREATE TABLE message(id int, val INT) ENGINE=MEMORY;
 INSERT INTO message VALUES(1, CAST(0 as INT));"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		
 			# Enable DB features.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET UNIQUE_CHECKS = 1;
 			SET FOREIGN_KEY_CHECKS = 1;
 			COMMIT;
 			SET AUTOCOMMIT = 1;"
 
 			# Create SSSP stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/SSSP.sql
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Warmup $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Warmup $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} Warmup $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Warmup $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 			
-			# Run Pagerank algorithm.
+			# Run SSSP algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CALL SSSP();"
 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Warmup $i Computation Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Warmup $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} Warmup $i Computation Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Warmup $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 
 		done
@@ -1109,9 +1112,9 @@ INSERT INTO message VALUES(1, CAST(0 as INT));"
 
 			# Login into mariadb shell. Create Database and tables.
 			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
 			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
   			node_id INT NOT NULL) ENGINE=MEMORY;
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Edges (
@@ -1121,47 +1124,47 @@ INSERT INTO message VALUES(1, CAST(0 as INT));"
 		        ) ENGINE=MEMORY;"
 			
 			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET FOREIGN_KEY_CHECKS = 0;
 			SET UNIQUE_CHECKS = 0;
 			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 			# Create Primary Key.
 			# BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
 			# BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			# BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			# echo "SSSP Iteration $i Create Primary Key Total:  $BENCH_TOTAL_TIME"
-			# echo "SSSP Iteration $i Create Primary Key Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			# echo "${BENCH_ALGORITHM} Iteration $i Create Primary Key Total:  $BENCH_TOTAL_TIME"
+			# echo "${BENCH_ALGORITHM} Iteration $i Create Primary Key Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 			# Create Index.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}   --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE INDEX idx_src ON Edges(src_id);
 CREATE INDEX idx_dest ON Edges(dest_id);
 CREATE INDEX idx_node ON Nodes(node_id);"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Iteration $i Create Index Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Iteration $i Create Index Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} Iteration $i Create Index Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Iteration $i Create Index Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 
 			# Create help tables.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}   --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=MEMORY
 (SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM Nodes);
 CREATE INDEX idx_nextT ON nextT(id);
@@ -1170,35 +1173,35 @@ CREATE TABLE message(id int, val INT) ENGINE=MEMORY;
 INSERT INTO message VALUES(1, CAST(0 as INT));"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		
 			# Enable DB features.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET UNIQUE_CHECKS = 1;
 			SET FOREIGN_KEY_CHECKS = 1;
 			COMMIT;
 			SET AUTOCOMMIT = 1;"
 
 			# Create SSSP stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/SSSP.sql
+			${BENCH_MARIADB_MYSQL}   --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Iteration $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Iteration $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} Iteration $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Iteration $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 			
-			# Run Pagerank algorithm.
+			# Run SSSP algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CALL SSSP();"
 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Iteration $i Computation Total:  $BENCH_TOTAL_TIME"
-			echo "SSSP Iteration $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} Iteration $i Computation Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Iteration $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 		done
 	else
@@ -1206,9 +1209,9 @@ INSERT INTO message VALUES(1, CAST(0 as INT));"
 
 			# Login into mariadb shell. Create Database and tables.
 			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
 			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes (
   			node_id INT NOT NULL) ENGINE=MEMORY;
 			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.Edges (
@@ -1218,31 +1221,31 @@ INSERT INTO message VALUES(1, CAST(0 as INT));"
 		        ) ENGINE=MEMORY;"
 			
 			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET FOREIGN_KEY_CHECKS = 0;
 			SET UNIQUE_CHECKS = 0;
 			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 
 			# Create Primary Key.
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
 
 			# Create Index.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CREATE INDEX idx_src ON Edges(src_id);
 CREATE INDEX idx_dest ON Edges(dest_id);
 CREATE INDEX idx_node ON Nodes(node_id);"
 
 			# Create help tables.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=MEMORY
 (SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM Nodes);
 CREATE INDEX idx_nextT ON nextT(id);
@@ -1251,17 +1254,17 @@ CREATE TABLE message(id int, val INT) ENGINE=MEMORY;
 INSERT INTO message VALUES(1, CAST(0 as INT));"
 
 			# Enable DB features.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			SET UNIQUE_CHECKS = 1;
 			SET FOREIGN_KEY_CHECKS = 1;
 			COMMIT;
 			SET AUTOCOMMIT = 1;"
 
 			# Create SSSP stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/SSSP.sql
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 
-			# Run Pagerank algorithm.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
+			# Run SSSP algorithm.
+			${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
 			CALL SSSP();"
 
 	fi
@@ -1289,106 +1292,63 @@ if [ "${BENCH_ENGINE}" == "MARIADBCOL" ]; then
 
   if [ "${BENCH_ALGORITHM}" == "PR" ]; then
 	if [ $BENCH_BENCHMARKING -eq 1 ]; then
+		# This line maybe removed depending on the user installation of the MariaDB Columnar. Root is needed to execute it.
+
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		for i in `seq 1 $BENCH_WARMUP`
 		do
-	
 			# Load graph dataset.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
 			# Login into mariadb columnar shell. Create Database and tables.
-			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
-			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.nodes (
+			# cd ${BENCH_MARIADBCOL_ROOT}
+			${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="
+			DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+			${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
   			node_id INT NOT NULL) ENGINE=ColumnStore;
-			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.edges (
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
 		        src_id  int not null,
 		        dest_id  int not null
 		        ) ENGINE=ColumnStore;"
 			
-			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			SET FOREIGN_KEY_CHECKS = 0;
-			SET UNIQUE_CHECKS = 0;
-			SET AUTOCOMMIT = 0;"
 			
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
+			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
+			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
 			echo "Pagerank Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME"
 			echo "Pagerank Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
-			# Create Primary Key.
-			# BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
-			# BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			# BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			# echo "Pagerank Warmup $i Create Primary Key Total:  $BENCH_TOTAL_TIME"
-			# echo "Pagerank Warmup $i Create Primary Key Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-
-			# Create Index.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE INDEX idx_src ON edges(src_id);
-CREATE INDEX idx_dest ON edges(dest_id);
-CREATE INDEX idx_node ON nodes(node_id);"
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "Pagerank Warmup $i Create Index Total:  $BENCH_TOTAL_TIME"
-			echo "Pagerank Warmup $i Create Index Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-
 
 			# Create help tables.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE TABLE nextT (id INT NOT NULL, val double) ENGINE=ColumnStore
-   SELECT node_id AS id, CAST(0 AS double) AS  val FROM nodes;
-CREATE INDEX idx_nextT ON nextT(id);
-			
-CREATE TABLE out_cnts (node_id INT NOT NULL, cnt INT) ENGINE=ColumnStore
- select nodes.node_id, count(dest_id) as cnt from nodes left outer join edges on nodes.node_id = edges.src_id group by nodes.node_id ;
-CREATE INDEX idx_cnts ON out_cnts(node_id);
-			CREATE TABLE message(id int not null, val double) ENGINE=ColumnStore;
-			INSERT INTO message(SELECT *, CAST(0 as double) FROM nodes);
-"
+			${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE nextT (id INT NOT NULL, val double) ENGINE=ColumnStore; 
+			INSERT INTO nextT SELECT node_id AS id, CAST(0 AS double) AS  val FROM nodes; 
+			CREATE TABLE out_cnts (node_id INT NOT NULL, cnt INT) ENGINE=ColumnStore; 
+			INSERT INTO out_cnts select nodes.node_id, count(dest_id) as cnt from nodes left outer join edges on nodes.node_id = edges.src_id group by nodes.node_id; 
+			CREATE TABLE message(id int not null, val double) ENGINE=ColumnStore; 
+			INSERT INTO message(SELECT *, CAST(0 as double) FROM nodes);"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
 			echo "Pagerank Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME"
 			echo "Pagerank Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		
-			# Enable DB features.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			SET UNIQUE_CHECKS = 1;
-			SET FOREIGN_KEY_CHECKS = 1;
-			COMMIT;
-			SET AUTOCOMMIT = 1;"
 
 			# Create Pagerank stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/PR.sql
+			# ${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "Pagerank Warmup $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME"
-			echo "Pagerank Warmup $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 			
 			# Run Pagerank algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CALL PagerankNew();"
-
+			# ${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			# set infinidb_vtable_mode = 2; CALL PagerankNew();"
+			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
 			echo "Pagerank Warmup $i Computation Total:  $BENCH_TOTAL_TIME"
@@ -1399,98 +1359,54 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 			# Load graph dataset.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
-			# Login into mariadb shell. Create Database and tables.
-			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
-			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.nodes (
+			# Login into mariadb columnar shell. Create Database and tables.
+			cd ${BENCH_MARIADBCOL_ROOT}
+			${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="
+			DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+			${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
   			node_id INT NOT NULL) ENGINE=ColumnStore;
-			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.edges (
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
 		        src_id  int not null,
 		        dest_id  int not null
 		        ) ENGINE=ColumnStore;"
 			
-			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			SET FOREIGN_KEY_CHECKS = 0;
-			SET UNIQUE_CHECKS = 0;
-			SET AUTOCOMMIT = 0;"
-			
+
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
+			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
+			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
 			echo "Pagerank Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME"
 			echo "Pagerank Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
-			# Create Primary Key.
-			# BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
-			# BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			# BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			# echo "Pagerank Iteration $i Create Primary Key Total:  $BENCH_TOTAL_TIME"
-			# echo "Pagerank Iteration $i Create Primary Key Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-	
-          		# Create Index.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE INDEX idx_src ON edges(src_id);
-CREATE INDEX idx_dest ON edges(dest_id);
-CREATE INDEX idx_node ON nodes(node_id);"
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "Pagerank Iteration $i Create Index Total:  $BENCH_TOTAL_TIME"
-			echo "Pagerank Iteration $i Create Index Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-
 
 			# Create help tables.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE TABLE nextT (id INT NOT NULL, val double) ENGINE=ColumnStore
-   SELECT node_id AS id, CAST(0 AS double) AS  val FROM nodes;
-CREATE INDEX idx_nextT ON nextT(id);
-			
-CREATE TABLE out_cnts (node_id INT NOT NULL, cnt INT) ENGINE=ColumnStore
- select nodes.node_id, count(dest_id) as cnt from nodes left outer join edges on nodes.node_id = edges.src_id group by nodes.node_id ;
-CREATE INDEX idx_cnts ON out_cnts(node_id);
-			CREATE TABLE message(id int not null, val double) ENGINE=ColumnStore;
-			INSERT INTO message(SELECT *, CAST(0 as double) FROM nodes);
-"
+			${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE nextT (id INT NOT NULL, val double) ENGINE=ColumnStore; 
+			INSERT INTO nextT SELECT node_id AS id, CAST(0 AS double) AS  val FROM nodes; 
+			CREATE TABLE out_cnts (node_id INT NOT NULL, cnt INT) ENGINE=ColumnStore; 
+			INSERT INTO out_cnts select nodes.node_id, count(dest_id) as cnt from nodes left outer join edges on nodes.node_id = edges.src_id group by nodes.node_id; 
+			CREATE TABLE message(id int not null, val double) ENGINE=ColumnStore; 
+			INSERT INTO message(SELECT *, CAST(0 as double) FROM nodes);"
+
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
 			echo "Pagerank Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME"
 			echo "Pagerank Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 		
-			# Enable DB features.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			SET UNIQUE_CHECKS = 1;
-			SET FOREIGN_KEY_CHECKS = 1;
-			COMMIT;
-			SET AUTOCOMMIT = 1;"
-
 			# Create Pagerank stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/PR.sql
+			# ${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "Pagerank Iteration $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME"
-			echo "Pagerank Iteration $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 			
 			# Run Pagerank algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CALL PagerankNew();"
-
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			# set infinidb_vtable_mode = 2; CALL PagerankNew();"
+			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
 			echo "Pagerank Iteration $i Computation Total:  $BENCH_TOTAL_TIME"
@@ -1500,82 +1416,369 @@ CREATE INDEX idx_cnts ON out_cnts(node_id);
 	
 			# Load graph dataset.
 
-			# Login into mariadb shell. Create Database and tables.
-			cd ${BENCH_MARIADB_ROOT}
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="
-			DROP DATABASE IF EXISTS  $BENCH_MARIADB_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADB_DATABASE_NAME;"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.nodes (
+			# Login into mariadb columnar shell. Create Database and tables.
+			cd ${BENCH_MARIADBCOL_ROOT}
+			${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="
+			DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+			${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
   			node_id INT NOT NULL) ENGINE=ColumnStore;
-			CREATE TABLE $BENCH_MARIADB_DATABASE_NAME.edges (
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
 		        src_id  int not null,
 		        dest_id  int not null
 		        ) ENGINE=ColumnStore;"
 			
-			# Disable some DB features to speedup the import of the dataset.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			SET FOREIGN_KEY_CHECKS = 0;
-			SET UNIQUE_CHECKS = 0;
-			SET AUTOCOMMIT = 0;"
-			
+	
 			# Load
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
+			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
+			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
 
 
-			# Create Primary Key.
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes ADD PRIMARY KEY (node_id);"
-			# mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			# ALTER TABLE $BENCH_MARIADB_DATABASE_NAME.Edges ADD PRIMARY KEY (src_id, dest_id);"
-
-          		# Create Index.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE INDEX idx_src ON edges(src_id);
-CREATE INDEX idx_dest ON edges(dest_id);
-CREATE INDEX idx_node ON nodes(node_id);"
 
 			# Create help tables.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CREATE TABLE nextT (id INT NOT NULL, val double) ENGINE=ColumnStore
-   SELECT node_id AS id, CAST(0 AS double) AS  val FROM nodes;
-CREATE INDEX idx_nextT ON nextT(id);
-			
-CREATE TABLE out_cnts (node_id INT NOT NULL, cnt INT) ENGINE=ColumnStore
- select nodes.node_id, count(dest_id) as cnt from nodes left outer join edges on nodes.node_id = edges.src_id group by nodes.node_id ;
-CREATE INDEX idx_cnts ON out_cnts(node_id);
-			CREATE TABLE message(id int not null, val double) ENGINE=ColumnStore;
+			${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE nextT (id INT NOT NULL, val double) ENGINE=ColumnStore; 
+			INSERT INTO nextT SELECT node_id AS id, CAST(0 AS double) AS  val FROM nodes; 
+			CREATE TABLE out_cnts (node_id INT NOT NULL, cnt INT) ENGINE=ColumnStore; 
+			INSERT INTO out_cnts select nodes.node_id, count(dest_id) as cnt from nodes left outer join edges on nodes.node_id = edges.src_id group by nodes.node_id; 
+			CREATE TABLE message(id int not null, val double) ENGINE=ColumnStore; 
 			INSERT INTO message(SELECT *, CAST(0 as double) FROM nodes);"
 
-		
-			# Enable DB features.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			SET UNIQUE_CHECKS = 1;
-			SET FOREIGN_KEY_CHECKS = 1;
-			COMMIT;
-			SET AUTOCOMMIT = 1;"
 
 			# Create Pagerank stored procedure.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SCRIPTS_DIR/sql/PR.sql
+			# ${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
 			# Run Pagerank algorithm.
-			mysql --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			CALL PagerankNew();"
+			# ${BENCH_MARIADBCOL_MYSQL}  --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			# set infinidb_vtable_mode = 2; CALL PagerankNew();"
+			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
 
 	fi 
   fi
   if [ "${BENCH_ALGORITHM}" == "CC" ]; then
- 
+	if [ $BENCH_BENCHMARKING -eq 1 ]; then
+		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		for i in `seq 1 $BENCH_WARMUP`
+		do
+			# Load graph dataset.
+			BENCH_START_TIME=$(($(date +%s%N)/1000000))
+
+			# Login into mariadb shell. Create Database and tables.
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="
+			DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
+  			node_id INT NOT NULL) ENGINE=ColumnStore;
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
+		        src_id  int not null,
+		        dest_id  int not null
+		        ) ENGINE=ColumnStore;"
+			
+
+			# Load
+			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
+			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "CC Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME"
+			echo "CC Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+
+			# Create help tables.
+			BENCH_START_TIME=$(($(date +%s%N)/1000000))
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=ColumnStore;
+INSERT INTO nextT SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM nodes;
+CREATE TABLE message(id int, val INT) ENGINE=ColumnStore;
+INSERT INTO message (SELECT *, CAST(node_id as INT) FROM nodes);"
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "CC Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME"
+			echo "CC Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		
+
+			# Create CC stored procedure.
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
+			
+			# Run CC algorithm.
+	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
+			# ${BENCH_MARIADBCOL_MYSQL}--user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			# set infinidb_vtable_mode = 2; CALL WCC();"
+			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "CC Warmup $i Computation Total:  $BENCH_TOTAL_TIME"
+			echo "CC Warmup $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+
+		done
+		for i in `seq 1 $BENCH_ITERATIONS`
+		do
+			# Load graph dataset.
+			BENCH_START_TIME=$(($(date +%s%N)/1000000))
+
+			# Login into mariadb shell. Create Database and tables.
+			cd ${BENCH_MARIADBCOL_ROOT}
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="
+			DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
+  			node_id INT NOT NULL) ENGINE=ColumnStore;
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
+		        src_id  int not null,
+		        dest_id  int not null
+		        ) ENGINE=ColumnStore;"
+			
+			# Load
+			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
+			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "CC Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME"
+			echo "CC Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+
+			# Create help tables.
+			BENCH_START_TIME=$(($(date +%s%N)/1000000))
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=ColumnStore;
+INSERT INTO nextT SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM nodes;
+CREATE TABLE message(id int, val INT) ENGINE=ColumnStore;
+INSERT INTO message (SELECT *, CAST(node_id as INT) FROM nodes);"
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "CC Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME"
+			echo "CC Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		
+
+			# Create CC stored procedure.
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
+			
+			# Run CC algorithm.
+	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			# set infinidb_vtable_mode = 2; CALL WCC();"
+			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "CC Iteration $i Computation Total:  $BENCH_TOTAL_TIME"
+			echo "CC Iteration $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		done
+	else
+			# Load graph dataset.
+
+			# Login into mariadb shell. Create Database and tables.
+			cd ${BENCH_MARIADBCOL_ROOT}
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="
+			DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
+  			node_id INT NOT NULL) ENGINE=ColumnStore;
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
+		        src_id  int not null,
+		        dest_id  int not null
+		        ) ENGINE=ColumnStore;"
+		
+			
+			# Load
+			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
+			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
+
+
+			# Create help tables.
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=ColumnStore;
+INSERT INTO nextT SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM nodes;
+CREATE TABLE message(id int, val INT) ENGINE=ColumnStore;
+INSERT INTO message (SELECT *, CAST(node_id as INT) FROM nodes);"
+			
+
+			# Create CC stored procedure.
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
+			
+			# Run CC algorithm.
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			# set infinidb_vtable_mode = 2; CALL WCC();"
+			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
+	fi
+  fi
   fi
   if [ "${BENCH_ALGORITHM}" == "SSSP" ]; then
- 
+	if [ $BENCH_BENCHMARKING -eq 1 ]; then
+		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		for i in `seq 1 $BENCH_WARMUP`
+		do
+			# Load graph dataset.
+			BENCH_START_TIME=$(($(date +%s%N)/1000000))
+
+			# Login into mariadb shell. Create Database and tables.
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="$(test1)"
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="$(test2)"
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="
+			DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
+  			node_id INT NOT NULL) ENGINE=ColumnStore;
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
+		        src_id  int not null,
+		        dest_id  int not null,
+	  		weight int not null default 1
+		        ) ENGINE=ColumnStore;"			
+			
+			# Load
+			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
+			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "${BENCH_ALGORITHM} Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+
+			# Create help tables.
+			BENCH_START_TIME=$(($(date +%s%N)/1000000))
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=ColumnStore;
+INSERT INTO nextT SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM nodes;
+CREATE TABLE message(id int, val INT) ENGINE=ColumnStore;
+INSERT INTO message VALUES(1, CAST(0 as INT));"
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "${BENCH_ALGORITHM} Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+			# Create SSSP stored procedure.
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
+			
+			# Run SSSP algorithm.
+	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
+
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			# set infinidb_vtable_mode = 2; CALL SSSP();"
+			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "${BENCH_ALGORITHM} Warmup $i Computation Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Warmup $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+
+		done
+		for i in `seq 1 $BENCH_ITERATIONS`
+		do
+			# Load graph dataset.
+			BENCH_START_TIME=$(($(date +%s%N)/1000000))
+
+			# Login into mariadb shell. Create Database and tables.
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="
+			DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
+  			node_id INT NOT NULL) ENGINE=ColumnStore;
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
+		        src_id  int not null,
+		        dest_id  int not null,
+	  		weight int not null default 1
+		        ) ENGINE=ColumnStore;"
+			
+
+			# Load
+			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
+			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "${BENCH_ALGORITHM} Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+
+			# Create help tables.
+			BENCH_START_TIME=$(($(date +%s%N)/1000000))
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=ColumnStore;
+INSERT INTO nextT SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM nodes;
+CREATE TABLE message(id int, val INT) ENGINE=ColumnStore;
+INSERT INTO message VALUES(1, CAST(0 as INT));"
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "${BENCH_ALGORITHM} Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		
+			# Create SSSP stored procedure.
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
+			
+			
+			# Run SSSP algorithm.
+	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
+
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			# set infinidb_vtable_mode = 2; CALL SSSP();"
+			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
+			BENCH_END_TIME=$(($(date +%s%N)/1000000))
+			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
+			echo "${BENCH_ALGORITHM} Iteration $i Computation Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} Iteration $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+		done
+	else
+			# Load graph dataset.
+
+			# Login into mariadb shell. Create Database and tables.
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="
+			DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
+  			node_id INT NOT NULL) ENGINE=ColumnStore;
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
+		        src_id  int not null,
+		        dest_id  int not null,
+	  		weight int not null default 1
+		        ) ENGINE=ColumnStore;"
+			
+			
+			# Load
+			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
+			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
+
+			# Create help tables.
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+CREATE TABLE nextT (id INT NOT NULL, val INT) ENGINE=ColumnStore;
+INSERT INTO nextT SELECT node_id AS id, CAST(2147483647 AS INT) AS  val FROM nodes;
+CREATE TABLE message(id int, val INT) ENGINE=ColumnStore;
+INSERT INTO message VALUES(1, CAST(0 as INT));"
+
+			# Create SSSP stored procedure.
+			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
+
+			# Run SSSP algorithm.
+			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="
+			# set infinidb_vtable_mode = 2; CALL SSSP();"
+			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
+	fi
   fi
   rc=$?
   echo "Returncode: $rc"
   exit $rc
 fi
+
+function MARIADBCOL_CREATE_DATABASE() 
+{
+echo "DROP DATABASE IF EXISTS  $BENCH_MARIADBCOL_DATABASE_NAME; CREATE DATABASE $BENCH_MARIADBCOL_DATABASE_NAME;"
+}
+
+
+function MARIADBCOL_CREATE_TABLES() 
+{
+echo "			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.nodes (
+  			node_id INT NOT NULL) ENGINE=ColumnStore;
+			CREATE TABLE $BENCH_MARIADBCOL_DATABASE_NAME.edges (
+		        src_id  int not null,
+		        dest_id  int not null,
+	  		weight int not null default 1
+		        ) ENGINE=ColumnStore;"
+}
+
 
 
 # ------------------------------------------------------------------------------

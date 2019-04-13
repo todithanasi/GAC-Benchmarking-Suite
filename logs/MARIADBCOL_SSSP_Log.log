@@ -1,0 +1,680 @@
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=4
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user1
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  10.697
+SSSP Warmup 1 Create help tables Total:  7.614
+SSSP Warmup 1 Computation Total:  221.376
+SSSP Iteration 1 GraphLoader Total:  8.123
+SSSP Iteration 1 Create help tables Total:  6.395
+SSSP Iteration 1 Computation Total:  235.141
+SSSP Iteration 2 GraphLoader Total:  9.967
+SSSP Iteration 2 Create help tables Total:  5.817
+SSSP Iteration 2 Computation Total:  248.532
+SSSP Iteration 3 GraphLoader Total:  7.956
+SSSP Iteration 3 Create help tables Total:  5.416
+SSSP Iteration 3 Computation Total:  239.781
+SSSP Iteration 4 GraphLoader Total:  8.525
+SSSP Iteration 4 Create help tables Total:  5.132
+SSSP Iteration 4 Computation Total:  256.056
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=4
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user1
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  11.472
+SSSP Warmup 1 Create help tables Total:  4.809
+SSSP Warmup 1 Computation Total:  512.658
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=4
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user1
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  5.843
+SSSP Warmup 1 Create help tables Total:  6.471
+SSSP Warmup 1 Computation Total:  34.029
+SSSP Iteration 1 GraphLoader Total:  2.578
+SSSP Iteration 1 Create help tables Total:  .059
+SSSP Iteration 1 Computation Total:  .071
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=4
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user1
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  4.848
+SSSP Warmup 1 Create help tables Total:  5.466
+SSSP Warmup 1 Computation Total:  12799.469
+SSSP Iteration 1 GraphLoader Total:  4.374
+SSSP Iteration 1 Create help tables Total:  .013
+SSSP Iteration 1 Computation Total:  .245
+SSSP Iteration 2 GraphLoader Total:  2.263
+SSSP Iteration 2 Create help tables Total:  .134
+SSSP Iteration 2 Computation Total:  .167
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user1
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  8.946
+SSSP Warmup 1 Create help tables Total:  5.491
+SSSP Warmup 1 Computation Total:  6.265
+SSSP Iteration 1 GraphLoader Total:  5.540
+SSSP Iteration 1 Create help tables Total:  .024
+SSSP Iteration 1 Computation Total:  288.101
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user1
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  1.964
+SSSP Warmup 1 Create help tables Total:  .023
+SSSP Warmup 1 Computation Total:  15.546
+SSSP Iteration 1 GraphLoader Total:  1.037
+SSSP Iteration 1 Create help tables Total:  .018
+SSSP Iteration 1 Computation Total:  16.214
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user1
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  5.222
+SSSP Warmup 1 Create help tables Total:  1.882
+SSSP Warmup 1 Computation Total:  6.954
+SSSP Iteration 1 GraphLoader Total:  6.539
+SSSP Iteration 1 Create help tables Total:  1.993
+SSSP Iteration 1 Computation Total:  6.786
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user1
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  6.333
+SSSP Warmup 1 Create help tables Total:  5.550
+SSSP Warmup 1 Computation Total:  364.315
+SSSP Iteration 1 GraphLoader Total:  2.805
+SSSP Iteration 1 Create help tables Total:  .194
+SSSP Iteration 1 Computation Total:  .139
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user1
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  5.635
+SSSP Warmup 1 Create help tables Total:  5.441
+SSSP Warmup 1 Computation Total:  470.290
+SSSP Iteration 1 GraphLoader Total:  2.653
+SSSP Iteration 1 Create help tables Total:  .411
+SSSP Iteration 1 Computation Total:  .006
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  5.801
+SSSP Warmup 1 Create help tables Total:  4.485
+SSSP Warmup 1 Computation Total:  213.601
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  9.360
+SSSP Warmup 1 Create help tables Total:  4.629
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_SQL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  .485
+SSSP Warmup 1 Create help tables Total:  5.626
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_SQL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  .321
+SSSP Warmup 1 Create help tables Total:  .016
+SSSP Warmup 1 Computation Total:  2.389
+SSSP Iteration 1 GraphLoader Total:  1.504
+SSSP Iteration 1 Create help tables Total:  .007
+SSSP Iteration 1 Computation Total:  .031
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_SQL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  .353
+SSSP Warmup 1 Create help tables Total:  .009
+SSSP Warmup 1 Computation Total:  .044
+SSSP Iteration 1 GraphLoader Total:  4.345
+SSSP Iteration 1 Create help tables Total:  1.387
+SSSP Iteration 1 Computation Total:  1.745
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_SQL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  3.665
+SSSP Warmup 1 Create help tables Total:  .011
+SSSP Warmup 1 Computation Total:  1.639
+SSSP Iteration 1 GraphLoader Total:  2.650
+SSSP Iteration 1 Create help tables Total:  .008
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_SQL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  .337
+SSSP Warmup 1 Create help tables Total:  .010
+SSSP Warmup 1 Computation Total:  .037
+SSSP Iteration 1 GraphLoader Total:  3.412
+SSSP Iteration 1 Create help tables Total:  .981
+SSSP Iteration 1 Computation Total:  .972
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_SQL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  3.782
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_SQL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  7.195
+SSSP Warmup 1 Create help tables Total:  5.713
+SSSP Warmup 1 Computation Total:  5.796
+SSSP Iteration 1 GraphLoader Total:  4.371
+SSSP Iteration 1 Create help tables Total:  .014
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadbcol.properties
+BENCH_ENGINE=MARIADBCOL
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/home/user/Desktop/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_NODES_FILE=/home/user/Desktop/Dataset/web-Google-nodes-unique.txt
+BENCH_MARIADBCOL_RELATIONSHIP_FILE=/home/user/Desktop/Dataset/web-Google-relationship-comma2.txt
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/scripts
+BENCH_SPARK_JAR=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=
+BENCH_SQL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+SSSP Warmup 1 GraphLoader Total:  4.925
