@@ -1,5 +1,5 @@
 *******************************************************************************
-BENCH_ALGORITHM=CC
+BENCH_ALGORITHM=PR
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/home/user/Desktop/Benchmarking-Scripts/templates/dataset.mariadb2.properties
 BENCH_ENGINE=MARIADB
@@ -30,13 +30,13 @@ BENCH_SPARK_ROOT=
 BENCH_SQL_SCRIPTS_DIR=/home/user/Desktop/Benchmarking-Scripts/sql
 BENCH_WARMUP=1
 *******************************************************************************
-CC Warmup 1 GraphLoader Total:  4.462
-CC Warmup 1 Create Index Total:  8.234
-CC Warmup 1 Create help tables Total:  2.444
-CC Warmup 1 Create Stored Procedure Total:  .023
-CC Warmup 1 Computation Total:  556.021
-CC Iteration 1 GraphLoader Total:  4.205
-CC Iteration 1 Create Index Total:  7.504
-CC Iteration 1 Create help tables Total:  2.213
-CC Iteration 1 Create Stored Procedure Total:  .022
-CC Iteration 1 Computation Total:  513.407
+PR Warmup 1 GraphLoader Total:  5.022
+PR Warmup 1 Create Index Total:  8.166
+PR Warmup 1 Create help tables Total:  7.907
+PR Warmup 1 Create Stored Procedure Total:  .047
+PR Warmup 1 Computation Total:  189.863
+PR Iteration 1 GraphLoader Total:  4.568
+PR Iteration 1 Create Index Total:  8.371
+PR Iteration 1 Create help tables Total:  8.034
+PR Iteration 1 Create Stored Procedure Total:  .049
+PR Iteration 1 Computation Total:  192.589
