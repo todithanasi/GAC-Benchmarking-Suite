@@ -510,13 +510,21 @@ if [ "${BENCH_ENGINE}" == "NEO4J" ]; then
 		fi
 	done < $BENCH_DATASET_PROPERTIES_FILE
 
-  if [ "${BENCH_ALGORITHM}" == "PR" ]; then
 	if [ $BENCH_BENCHMARKING -eq 1 ]; then
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		for i in `seq 1 $BENCH_WARMUP`
+
+LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
+
+		for i in `seq 1 $LOOP_ITERATIONS`
 		do
+			LOOP_PART='Warmup'
+			LOOP_INDEX=$i
+			if [ $i -gt $BENCH_WARMUP ]; then
+			LOOP_PART='Iteration'
+			LOOP_INDEX=$(($i-$BENCH_WARMUP))
+			fi
 			# Delete graph. We need to stop first Neo4J, delete and start again the service. We do not measure the time here.
 			${BENCH_NEO4J_ROOT}/bin/neo4j stop
 			rm -rf ${BENCH_NEO4J_ROOT}/data/databases/graph.db		
@@ -526,7 +534,7 @@ if [ "${BENCH_ENGINE}" == "NEO4J" ]; then
 			${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "Pagerank Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 			${BENCH_NEO4J_ROOT}/bin/neo4j start
 			
 			# Pause for a few seconds to give time Neo4J to prepare.
@@ -534,34 +542,10 @@ if [ "${BENCH_ENGINE}" == "NEO4J" ]; then
 			
 			# Run Pagerank algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			cat $BENCH_SCRIPTS_DIR/cypher/PR.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
+			cat $BENCH_SCRIPTS_DIR/cypher/${BENCH_ALGORITHM}.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "Pagerank Warmup $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		done
-		for i in `seq 1 $BENCH_ITERATIONS`
-		do
-			# Delete graph. We need to stop first Neo4J, delete and start again the service. We do not measure the time here.
-			${BENCH_NEO4J_ROOT}/bin/neo4j stop
-			rm -rf ${BENCH_NEO4J_ROOT}/data/databases/graph.db		
-
-			# Load graph. It can be imported only if Neo4j is not running. Start Neo4J after importing.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "Pagerank Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-			${BENCH_NEO4J_ROOT}/bin/neo4j start
-			
-			# Pause for a few seconds to give time Neo4J to prepare.
-			sleep 10
-			
-			# Run Pagerank algorithm.
-	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			cat $BENCH_SCRIPTS_DIR/cypher/PR.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "Pagerank Iteration $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		done
 	else
 			# Delete graph. We need to stop first Neo4J, delete and start again the service. We do not measure the time here.
@@ -574,143 +558,8 @@ if [ "${BENCH_ENGINE}" == "NEO4J" ]; then
 			
 			# Pause for a few seconds to give time Neo4J to prepare.
 			sleep 10
-			cat $BENCH_SCRIPTS_DIR/cypher/PR.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
+			cat $BENCH_SCRIPTS_DIR/cypher/${BENCH_ALGORITHM}.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
 	fi
-  fi
-  if [ "${BENCH_ALGORITHM}" == "CC" ]; then
-	if [ $BENCH_BENCHMARKING -eq 1 ]; then
-		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		for i in `seq 1 $BENCH_WARMUP`
-		do
-			# Delete graph. We need to stop first Neo4J, delete and start again the service. We do not measure the time here.
-			${BENCH_NEO4J_ROOT}/bin/neo4j stop
-			rm -rf ${BENCH_NEO4J_ROOT}/data/databases/graph.db		
-
-			# Load graph. It can be imported only if Neo4j is not running. Start Neo4J after importing.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "ConnectedComponents Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-			${BENCH_NEO4J_ROOT}/bin/neo4j start
-			
-			# Pause for a few seconds to give time Neo4J to prepare.
-			sleep 10
-			
-			# Run ConnectedComponents algorithm.
-	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			cat $BENCH_SCRIPTS_DIR/cypher/CC.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "ConnectedComponents Warmup $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		done
-		for i in `seq 1 $BENCH_ITERATIONS`
-		do
-			# Delete graph. We need to stop first Neo4J, delete and start again the service. We do not measure the time here.
-			${BENCH_NEO4J_ROOT}/bin/neo4j stop
-			rm -rf ${BENCH_NEO4J_ROOT}/data/databases/graph.db		
-
-			# Load graph. It can be imported only if Neo4j is not running. Start Neo4J after importing.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "ConnectedComponents Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-			${BENCH_NEO4J_ROOT}/bin/neo4j start
-			
-			# Pause for a few seconds to give time Neo4J to prepare.
-			sleep 10
-			
-			# Run ConnectedComponents algorithm.
-	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			cat $BENCH_SCRIPTS_DIR/cypher/CC.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "ConnectedComponents Iteration $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		done
-	else
-			# Delete graph. We need to stop first Neo4J, delete and start again the service. We do not measure the time here.
-			${BENCH_NEO4J_ROOT}/bin/neo4j stop
-			rm -rf ${BENCH_NEO4J_ROOT}/data/databases/graph.db		
-
-			# Load graph. It can be imported only if Neo4j is not running. Start Neo4J after importing.
-			${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
-			${BENCH_NEO4J_ROOT}/bin/neo4j start
-			
-			# Pause for a few seconds to give time Neo4J to prepare.
-			sleep 10
-		        cat $BENCH_SCRIPTS_DIR/cypher/CC.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
-	fi
-  fi
-  if [ "${BENCH_ALGORITHM}" == "SSSP" ]; then
-	if [ $BENCH_BENCHMARKING -eq 1 ]; then
-		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		for i in `seq 1 $BENCH_WARMUP`
-		do
-			# Delete graph. We need to stop first Neo4J, delete and start again the service. We do not measure the time here.
-			${BENCH_NEO4J_ROOT}/bin/neo4j stop
-			rm -rf ${BENCH_NEO4J_ROOT}/data/databases/graph.db		
-
-			# Load graph. It can be imported only if Neo4j is not running. Start Neo4J after importing.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-			${BENCH_NEO4J_ROOT}/bin/neo4j start
-			
-			# Pause for a few seconds to give time Neo4J to prepare.
-			sleep 10
-			
-			# Run SSSP algorithm.
-	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			cat $BENCH_SCRIPTS_DIR/cypher/SSSP.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Warmup $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		done
-		for i in `seq 1 $BENCH_ITERATIONS`
-		do
-			# Delete graph. We need to stop first Neo4J, delete and start again the service. We do not measure the time here.
-			${BENCH_NEO4J_ROOT}/bin/neo4j stop
-			rm -rf ${BENCH_NEO4J_ROOT}/data/databases/graph.db		
-
-			# Load graph. It can be imported only if Neo4j is not running. Start Neo4J after importing.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-			${BENCH_NEO4J_ROOT}/bin/neo4j start
-			
-			# Pause for a few seconds to give time Neo4J to prepare.
-			sleep 10
-			
-			# Run SSSP algorithm.
-	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			cat $BENCH_SCRIPTS_DIR/cypher/SSSP.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "SSSP Iteration $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		done
-	else
-			# Delete graph. We need to stop first Neo4J, delete and start again the service. We do not measure the time here.
-			${BENCH_NEO4J_ROOT}/bin/neo4j stop
-			rm -rf ${BENCH_NEO4J_ROOT}/data/databases/graph.db		
-
-			# Load graph. It can be imported only if Neo4j is not running. Start Neo4J after importing.
-			${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
-			${BENCH_NEO4J_ROOT}/bin/neo4j start
-			
-			# Pause for a few seconds to give time Neo4J to prepare.
-			sleep 10
-		        cat $BENCH_SCRIPTS_DIR/cypher/SSSP.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
-	fi
-  fi
   rc=$?
   echo "Returncode: $rc"
   exit $rc
@@ -739,8 +588,17 @@ if [ "${BENCH_ENGINE}" == "MARIADB" ]; then
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		for i in `seq 1 $BENCH_WARMUP`
+
+LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
+
+		for i in `seq 1 $LOOP_ITERATIONS`
 		do
+			LOOP_PART='Warmup'
+			LOOP_INDEX=$i
+			if [ $i -gt $BENCH_WARMUP ]; then
+			LOOP_PART='Iteration'
+			LOOP_INDEX=$(($i-$BENCH_WARMUP))
+			fi
 			# Load graph dataset.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
@@ -758,24 +616,24 @@ if [ "${BENCH_ENGINE}" == "MARIADB" ]; then
 			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX GraphLoader Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 			# Create Primary Key.
 			# BENCH_START_TIME=$(($(date +%s%N)/1000000))
 			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_PRIMARYKEY)"
 			# BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			# BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			# echo "${BENCH_ALGORITHM} Warmup $i Create Primary Key Total:  $BENCH_TOTAL_TIME"
-			# echo "${BENCH_ALGORITHM} Warmup $i Create Primary Key Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			# echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Create Primary Key Total:  $BENCH_TOTAL_TIME"
+			# echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Create Primary Key Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 			# Create Index.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
 			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_INDEX)"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Warmup $i Create Index Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Warmup $i Create Index Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Create Index Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Create Index Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 
 			# Create help tables.
@@ -783,21 +641,15 @@ if [ "${BENCH_ENGINE}" == "MARIADB" ]; then
 			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_HELP_TABLES)"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Create help tables Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		
 			# Enable DB features.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
 			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_ENABLE_FEATURES)"
 
 			# Create stored procedure.
 			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
 			
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Warmup $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Warmup $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-			
 			# Run algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
@@ -805,80 +657,9 @@ if [ "${BENCH_ENGINE}" == "MARIADB" ]; then
 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Warmup $i Computation Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Warmup $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Computation Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
-
-		done
-		for i in `seq 1 $BENCH_ITERATIONS`
-		do
-			# Load graph dataset.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-
-			# Login into mariadb shell. Create Database and tables.
-			cd ${BENCH_MARIADB_ROOT}
-			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_DATABASE)"
-			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_TABLES)"
-			
-			# Disable some DB features to speedup the import of the dataset.
-			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_DISABLE_FEATURES)"
-			
-			# Load
-			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_NODES_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Nodes FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="
-			LOAD DATA LOCAL INFILE '$BENCH_MARIADB_RELATIONSHIP_FILE'   INTO TABLE $BENCH_MARIADB_DATABASE_NAME.Edges FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';"
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-
-			# Create Primary Key.
-			# BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			# ${BENCH_MARIADB_MYSQL} --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_PRIMARYKEY)"
-			# BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			# BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			# echo "${BENCH_ALGORITHM} Iteration $i Create Primary Key Total:  $BENCH_TOTAL_TIME"
-			# echo "${BENCH_ALGORITHM} Iteration $i Create Primary Key Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-
-			# Create Index.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_MARIADB_MYSQL}   --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_INDEX)"
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Iteration $i Create Index Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Iteration $i Create Index Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-
-
-			# Create help tables.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_MARIADB_MYSQL}   --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_HELP_TABLES)"
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		
-			# Enable DB features.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_ENABLE_FEATURES)"
-
-			# Create stored procedure.
-			${BENCH_MARIADB_MYSQL}   --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
-			
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Iteration $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Iteration $i Create Stored Procedure Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-			
-			# Run algorithm.
-	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
-
-			${BENCH_MARIADB_MYSQL}  --user="${BENCH_MARIADB_SHELL_USERNAME}" --password="${BENCH_MARIADB_SHELL_PASSWORD}" --database="$BENCH_MARIADB_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_RUN_${BENCH_ALGORITHM})"
-
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Iteration $i Computation Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Iteration $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 		done
 	else
@@ -939,12 +720,21 @@ if [ "${BENCH_ENGINE}" == "MARIADBCOL" ]; then
 		fi
 	done < $BENCH_DATASET_PROPERTIES_FILE	
 
+
 	if [ $BENCH_BENCHMARKING -eq 1 ]; then
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		for i in `seq 1 $BENCH_WARMUP`
+
+LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
+		for i in `seq 1 $LOOP_ITERATIONS`
 		do
+			LOOP_PART='Warmup'
+			LOOP_INDEX=$i
+			if [ $i -gt $BENCH_WARMUP ]; then
+			LOOP_PART='Iteration'
+			LOOP_INDEX=$(($i-$BENCH_WARMUP))
+			fi
 			# Load graph dataset.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
 
@@ -958,8 +748,8 @@ if [ "${BENCH_ENGINE}" == "MARIADBCOL" ]; then
 			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Warmup $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX GraphLoader Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 
 			# Create help tables.
@@ -967,8 +757,8 @@ if [ "${BENCH_ENGINE}" == "MARIADBCOL" ]; then
 			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_HELP_TABLES)"
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Warmup $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Create help tables Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 			# Create stored procedure.
 			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
@@ -980,50 +770,8 @@ if [ "${BENCH_ENGINE}" == "MARIADBCOL" ]; then
 			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Warmup $i Computation Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Warmup $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-
-		done
-		for i in `seq 1 $BENCH_ITERATIONS`
-		do
-			# Load graph dataset.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-
-			# Login into mariadb shell. Create Database and tables.
-			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_DATABASE)"
-			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_TABLES)"
-			
-
-			# Load
-			$BENCH_MARIADBCOL_CPIMPORT graph nodes "$BENCH_MARIADBCOL_NODES_FILE"  -s ","
-			$BENCH_MARIADBCOL_CPIMPORT graph edges "$BENCH_MARIADBCOL_RELATIONSHIP_FILE"  -s ","
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Iteration $i GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-
-
-			# Create help tables.
-			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CREATE_HELP_TABLES)"
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Iteration $i Create help tables Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-		
-			# Create stored procedure.
-			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" < $BENCH_SQL_SCRIPTS_DIR/${BENCH_ALGORITHM}_${BENCH_ENGINE}.sql
-			
-			
-			# Run algorithm.
-	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
-
-			# ${BENCH_MARIADBCOL_MYSQL} --user="${BENCH_MARIADBCOL_SHELL_USERNAME}" --password="${BENCH_MARIADBCOL_SHELL_PASSWORD}" --database="$BENCH_MARIADBCOL_DATABASE_NAME" --execute="$(${BENCH_ENGINE}_{BENCH_ALGORITHM}_RUN_{BENCH_ALGORITHM})"
-			$BENCH_SHELL_SCRIPTS_DIR/${BENCH_ALGORITHM}.sh
-			BENCH_END_TIME=$(($(date +%s%N)/1000000))
-			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
-			echo "${BENCH_ALGORITHM} Iteration $i Computation Total:  $BENCH_TOTAL_TIME"
-			echo "${BENCH_ALGORITHM} Iteration $i Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Computation Total:  $BENCH_TOTAL_TIME"
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 		done
 	else
