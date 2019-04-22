@@ -138,6 +138,19 @@ if [ ! -f $BENCH_DATASET_PROPERTIES_FILE ]; then
   . $BENCH_SCRIPTS_DIR/handle_errors.sh
 fi
 
+if [ "x$BENCH_SPARK_OUTPUT" == "x" ]; then
+  export BENCH_ERROR=2
+  export BENCH_ERRORMSG='BENCH_SPARK_OUTPUT value is not specified! Set the value in the script set_env_global_configurations.sh'
+  . $BENCH_SCRIPTS_DIR/handle_errors.sh
+fi
+
+if [ "x$BENCH_NEO4J_ROOT" == "x" ]; then
+  export BENCH_ERROR=2
+  export BENCH_ERRORMSG='BENCH_NEO4J_ROOT value is not specified! Set the value in the script set_env_global_configurations.sh'
+  . $BENCH_SCRIPTS_DIR/handle_errors.sh
+fi
+
+
 echo ""
 echo "*******************************************************************************"
 echo "*******************************************************************************"
@@ -157,6 +170,33 @@ echo ""
 # ------------------------------------------------------------------------------
 # All functions for implementing the algoriths.
 # ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
+# SPARK PR
+# ------------------------------------------------------------------------------
+
+function SPARK_PR_CLASS() 
+{
+echo "PageRank"
+}
+
+# ------------------------------------------------------------------------------
+# SPARK PR
+# ------------------------------------------------------------------------------
+
+function SPARK_CC_CLASS() 
+{
+echo "ConnectedComponents"
+}
+
+# ------------------------------------------------------------------------------
+# SPARK PR
+# ------------------------------------------------------------------------------
+
+function SPARK_SSSP_CLASS() 
+{
+echo "ShortestPath"
+}
 
 # ------------------------------------------------------------------------------
 # MARIADB PR
@@ -470,15 +510,57 @@ echo "set infinidb_vtable_mode = 2; CALL SSSP();"
 # ------------------------------------------------------------------------------
 
 if [ "${BENCH_ENGINE}" == "SPARK" ]; then
-  if [ "${BENCH_ALGORITHM}" == "PR" ]; then
-  . $BENCH_SPARK_ROOT/bin/spark $BENCH_SPARK_JAR
-  fi
-  if [ "${BENCH_ALGORITHM}" == "CC" ]; then
-  . $BENCH_SPARK_ROOT/bin/spark $BENCH_SPARK_JAR
-  fi
-  if [ "${BENCH_ALGORITHM}" == "SSSP" ]; then
-  . $BENCH_SPARK_ROOT/bin/spark $BENCH_SPARK_JAR
-  fi
+
+	while IFS== read key value;do
+		[[ "$key" =~ ^#.*$ ]] && continue
+		if [ "${key}" == "spark.dataset" ]; then
+			export BENCH_SPARK_DATASET=$value
+		fi
+		if [ "${key}" == "spark.num.executors" ]; then
+			export BENCH_SPARK_NUM_EXECUTORS=$value
+		fi
+		if [ "${key}" == "spark.executor.cores" ]; then
+			export BENCH_SPARK_EXECUTOR_CORES=$value
+		fi
+		if [ "${key}" == "spark.executor.memory" ]; then
+			export BENCH_SPARK_EXECUTOR_MEMORY=$value
+		fi
+	done < $BENCH_DATASET_PROPERTIES_FILE
+
+	if [ $BENCH_BENCHMARKING -eq 1 ]; then
+		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+		echo "STARTING Time:  `date`"  >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		echo "-------------------------------------------------------------------------------" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
+
+		for i in `seq 1 $LOOP_ITERATIONS`
+		do
+			LOOP_PART='Warmup'
+			LOOP_INDEX=$i
+			if [ $i -gt $BENCH_WARMUP ]; then
+			LOOP_PART='Iteration'
+			LOOP_INDEX=$(($i-$BENCH_WARMUP))
+			fi
+			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+			# Stop Spark engine and change configuration settings.
+			${BENCH_SPARK_ROOT}/sbin/stop-all.sh
+			rm -rf ${BENCH_SPARK_OUTPUT}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
+			${BENCH_SPARK_ROOT}/sbin/start-all.sh
+
+			$BENCH_SPARK_ROOT/bin/spark-submit --class $(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CLASS) --master $BENCH_SPARK_MASTER_URL --num-executors $BENCH_SPARK_NUM_EXECUTORS --executor-cores $BENCH_SPARK_EXECUTOR_CORES  --executor-memory $BENCH_SPARK_EXECUTOR_MEMORY $BENCH_SPARK_JAR $BENCH_SPARK_DATASET $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log $BENCH_SPARK_OUTPUT/${BENCH_ENGINE}_${BENCH_ALGORITHM}
+		done
+	else
+			${BENCH_SPARK_ROOT}/sbin/stop-all.sh
+			rm -rf ${BENCH_SPARK_OUTPUT}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
+			${BENCH_SPARK_ROOT}/sbin/start-all.sh
+
+			$BENCH_SPARK_ROOT/bin/spark-submit --class $(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CLASS) --master $BENCH_SPARK_MASTER_URL --num-executors $BENCH_SPARK_NUM_EXECUTORS --executor-cores $BENCH_SPARK_EXECUTOR_CORES  --executor-memory $BENCH_SPARK_EXECUTOR_MEMORY $BENCH_SPARK_JAR $BENCH_SPARK_DATASET $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log $BENCH_SPARK_OUTPUT/${BENCH_ENGINE}_${BENCH_ALGORITHM}
+	fi
   rc=$?
   echo "Returncode: $rc"
   exit $rc
@@ -514,6 +596,9 @@ if [ "${BENCH_ENGINE}" == "NEO4J" ]; then
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+		echo "STARTING Time:  `date`"  >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		echo "-------------------------------------------------------------------------------" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
 
@@ -588,6 +673,9 @@ if [ "${BENCH_ENGINE}" == "MARIADB" ]; then
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+		echo "STARTING Time:  `date`"  >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		echo "-------------------------------------------------------------------------------" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
 
@@ -725,6 +813,9 @@ if [ "${BENCH_ENGINE}" == "MARIADBCOL" ]; then
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+
+		echo "STARTING Time:  `date`"  >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
+		echo "-------------------------------------------------------------------------------" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 
 LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
 		for i in `seq 1 $LOOP_ITERATIONS`
