@@ -40,16 +40,16 @@ export BENCH_SHELL_SCRIPTS_DIR=$PWD/scripts
 # ---------------------------------------------------------------------------
 
 # Path of the root installation folder of Spark. Place the path of one level up from the bin folder.
-export BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.1-bin-hadoop2.7
+export BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 
 # Path of the jar file that you want to execute. 
 export BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 
 # SPARK Master URL. 
-export BENCH_SPARK_MASTER_URL=spark://ibm-power-1.dima.tu-berlin.de:7077
+export BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
 
 # SPARK output path for saving the algorithm result.
-export BENCH_SPARK_OUTPUT=/share/hadoop/todi_thanasi/output
+export BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
 
 # ---------------------------------------------------------------------------
 # PageRank algorithm default settings in Spark.
