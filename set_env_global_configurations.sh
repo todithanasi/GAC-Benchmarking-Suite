@@ -49,7 +49,12 @@ export BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 export BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
 
 # SPARK output path for saving the algorithm result.
-export BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+# Use only one between HDFS and TXT.
+export BENCH_SPARK_OUTPUT_TXT=
+
+export BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+export BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+export BENCH_SPARK_HDFS_MASTER_URL=hdfs://cloud-11:44000
 
 # ---------------------------------------------------------------------------
 # PageRank algorithm default settings in Spark.

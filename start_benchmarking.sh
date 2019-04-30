@@ -138,9 +138,9 @@ if [ ! -f $BENCH_DATASET_PROPERTIES_FILE ]; then
   . $BENCH_SCRIPTS_DIR/handle_errors.sh
 fi
 
-if [ "x$BENCH_SPARK_OUTPUT" == "x" ]; then
+if [ "x$BENCH_SPARK_OUTPUT_HDFS" == "x" -a "x$BENCH_SPARK_OUTPUT_TXT" == "x" ]; then
   export BENCH_ERROR=2
-  export BENCH_ERRORMSG='BENCH_SPARK_OUTPUT value is not specified! Set the value in the script set_env_global_configurations.sh'
+  export BENCH_ERRORMSG='Please specify one of the values between BENCH_SPARK_OUTPUT_HDFS and BENCH_SPARK_OUTPUT_TXT! Set the value in the script set_env_global_configurations.sh'
   . $BENCH_SCRIPTS_DIR/handle_errors.sh
 fi
 
@@ -171,6 +171,18 @@ echo ""
 # All functions for implementing the algoriths.
 # ------------------------------------------------------------------------------
 
+function CLEAN_OUTPUT_PATH() 
+{
+
+	if [ "x$BENCH_SPARK_OUTPUT_HDFS" == "x" ]; then
+		rm -rf ${BENCH_SPARK_OUTPUT_TXT}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
+		BENCH_SPARK_OUTPUT=$BENCH_SPARK_OUTPUT_TXT
+	else
+		${BENCH_SPARK_HDFS_ROOT}/bin/hdfs dfs -rm -r ${BENCH_SPARK_OUTPUT_HDFS}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
+		BENCH_SPARK_OUTPUT=${BENCH_SPARK_HDFS_MASTER_URL}${BENCH_SPARK_OUTPUT_HDFS}
+	fi
+}
+
 # ------------------------------------------------------------------------------
 # SPARK PR
 # ------------------------------------------------------------------------------
@@ -181,7 +193,7 @@ echo "PageRank"
 }
 
 # ------------------------------------------------------------------------------
-# SPARK PR
+# SPARK CC
 # ------------------------------------------------------------------------------
 
 function SPARK_CC_CLASS() 
@@ -190,7 +202,7 @@ echo "ConnectedComponents"
 }
 
 # ------------------------------------------------------------------------------
-# SPARK PR
+# SPARK SSSP
 # ------------------------------------------------------------------------------
 
 function SPARK_SSSP_CLASS() 
@@ -533,6 +545,15 @@ if [ "${BENCH_ENGINE}" == "SPARK" ]; then
 		fi
 	done < $BENCH_DATASET_PROPERTIES_FILE
 
+
+
+	# Stop Spark engine and change configuration settings.
+	${BENCH_SPARK_ROOT}/sbin/stop-all.sh
+
+#TODO: Implement changes of the configuration settings from the script.
+
+	${BENCH_SPARK_ROOT}/sbin/start-all.sh
+
 	if [ $BENCH_BENCHMARKING -eq 1 ]; then
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 		env | sort | grep 'BENCH' >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
@@ -552,18 +573,14 @@ LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
 			LOOP_INDEX=$(($i-$BENCH_WARMUP))
 			fi
 			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
-
-			# Stop Spark engine and change configuration settings.
-			${BENCH_SPARK_ROOT}/sbin/stop-all.sh
-			rm -rf ${BENCH_SPARK_OUTPUT}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
-			${BENCH_SPARK_ROOT}/sbin/start-all.sh
+			# Clean output directory.
+			$(CLEAN_OUTPUT_PATH) 
 
 			$BENCH_SPARK_ROOT/bin/spark-submit --class $(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CLASS) --master $BENCH_SPARK_MASTER_URL --num-executors $BENCH_SPARK_NUM_EXECUTORS --executor-cores $BENCH_SPARK_EXECUTOR_CORES  --executor-memory $BENCH_SPARK_EXECUTOR_MEMORY --driver-memory $BENCH_SPARK_DRIVER_MEMORY --driver-cores $BENCH_SPARK_DRIVER_CORES $BENCH_SPARK_JAR $BENCH_SPARK_DATASET $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log $BENCH_SPARK_OUTPUT/${BENCH_ENGINE}_${BENCH_ALGORITHM}
 		done
 	else
-			${BENCH_SPARK_ROOT}/sbin/stop-all.sh
-			rm -rf ${BENCH_SPARK_OUTPUT}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
-			${BENCH_SPARK_ROOT}/sbin/start-all.sh
+			# Clean output directory.
+			$(CLEAN_OUTPUT_PATH) 
 
 			$BENCH_SPARK_ROOT/bin/spark-submit --class $(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CLASS) --master $BENCH_SPARK_MASTER_URL --num-executors $BENCH_SPARK_NUM_EXECUTORS --executor-cores $BENCH_SPARK_EXECUTOR_CORES  --executor-memory $BENCH_SPARK_EXECUTOR_MEMORY --driver-memory $BENCH_SPARK_DRIVER_MEMORY --driver-cores $BENCH_SPARK_DRIVER_CORES $BENCH_SPARK_JAR $BENCH_SPARK_DATASET $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log $BENCH_SPARK_OUTPUT/${BENCH_ENGINE}_${BENCH_ALGORITHM}
 	fi
