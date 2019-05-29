@@ -176,11 +176,9 @@ function CLEAN_OUTPUT_PATH()
 
 	if [ "x$BENCH_SPARK_OUTPUT_HDFS" == "x" ]; then
 		rm -rf ${BENCH_SPARK_OUTPUT_TXT}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
-		BENCH_SPARK_OUTPUT=$BENCH_SPARK_OUTPUT_TXT
 	else
 		${BENCH_SPARK_HDFS_ROOT}/bin/hdfs dfs -rm -r ${BENCH_SPARK_OUTPUT_HDFS}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
-		BENCH_SPARK_OUTPUT=${BENCH_SPARK_HDFS_MASTER_URL}${BENCH_SPARK_OUTPUT_HDFS}
-	fi
+    fi
 }
 
 # ------------------------------------------------------------------------------
@@ -548,11 +546,11 @@ if [ "${BENCH_ENGINE}" == "SPARK" ]; then
 
 
 	# Stop Spark engine and change configuration settings.
-	${BENCH_SPARK_ROOT}/sbin/stop-all.sh
+#	${BENCH_SPARK_ROOT}/sbin/stop-all.sh
 
 #TODO: Implement changes of the configuration settings from the script.
 
-	${BENCH_SPARK_ROOT}/sbin/start-all.sh
+#	${BENCH_SPARK_ROOT}/sbin/start-all.sh
 
 	if [ $BENCH_BENCHMARKING -eq 1 ]; then
 		echo "*******************************************************************************" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
@@ -576,13 +574,13 @@ LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
 			# Clean output directory.
 			$(CLEAN_OUTPUT_PATH) 
 
-			$BENCH_SPARK_ROOT/bin/spark-submit --class $(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CLASS) --master $BENCH_SPARK_MASTER_URL --num-executors $BENCH_SPARK_NUM_EXECUTORS --executor-cores $BENCH_SPARK_EXECUTOR_CORES  --executor-memory $BENCH_SPARK_EXECUTOR_MEMORY --driver-memory $BENCH_SPARK_DRIVER_MEMORY --driver-cores $BENCH_SPARK_DRIVER_CORES $BENCH_SPARK_JAR $BENCH_SPARK_DATASET $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log $BENCH_SPARK_OUTPUT/${BENCH_ENGINE}_${BENCH_ALGORITHM}
+			$BENCH_SPARK_ROOT/bin/spark-submit --class $(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CLASS) --master $BENCH_SPARK_MASTER_URL --num-executors $BENCH_SPARK_NUM_EXECUTORS --executor-cores $BENCH_SPARK_EXECUTOR_CORES  --executor-memory $BENCH_SPARK_EXECUTOR_MEMORY --driver-memory $BENCH_SPARK_DRIVER_MEMORY --driver-cores $BENCH_SPARK_DRIVER_CORES $BENCH_SPARK_JAR $BENCH_SPARK_DATASET $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log ${BENCH_SPARK_OUTPUT}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
 		done
 	else
 			# Clean output directory.
 			$(CLEAN_OUTPUT_PATH) 
 
-			$BENCH_SPARK_ROOT/bin/spark-submit --class $(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CLASS) --master $BENCH_SPARK_MASTER_URL --num-executors $BENCH_SPARK_NUM_EXECUTORS --executor-cores $BENCH_SPARK_EXECUTOR_CORES  --executor-memory $BENCH_SPARK_EXECUTOR_MEMORY --driver-memory $BENCH_SPARK_DRIVER_MEMORY --driver-cores $BENCH_SPARK_DRIVER_CORES $BENCH_SPARK_JAR $BENCH_SPARK_DATASET $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log $BENCH_SPARK_OUTPUT/${BENCH_ENGINE}_${BENCH_ALGORITHM}
+			$BENCH_SPARK_ROOT/bin/spark-submit --class $(${BENCH_ENGINE}_${BENCH_ALGORITHM}_CLASS) --master $BENCH_SPARK_MASTER_URL --num-executors $BENCH_SPARK_NUM_EXECUTORS --executor-cores $BENCH_SPARK_EXECUTOR_CORES  --executor-memory $BENCH_SPARK_EXECUTOR_MEMORY --driver-memory $BENCH_SPARK_DRIVER_MEMORY --driver-cores $BENCH_SPARK_DRIVER_CORES $BENCH_SPARK_JAR $BENCH_SPARK_DATASET $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log ${BENCH_SPARK_OUTPUT}/${BENCH_ENGINE}_${BENCH_ALGORITHM}
 	fi
   rc=$?
   echo "Returncode: $rc"
@@ -613,6 +611,10 @@ if [ "${BENCH_ENGINE}" == "NEO4J" ]; then
 		if [ "${key}" == "neo4j.relationship" ]; then
 			export BENCH_NEO4J_RELATIONSHIP=$value
 		fi
+                if [ "${key}" == "neo4j.cypher.file" ]; then
+                        export BENCH_NEO4J_CYPHER_FILE=$value
+                fi
+
 	done < $BENCH_DATASET_PROPERTIES_FILE
 
 	if [ $BENCH_BENCHMARKING -eq 1 ]; then
@@ -639,18 +641,18 @@ LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
 
 			# Load graph. It can be imported only if Neo4j is not running. Start Neo4J after importing.
 			BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
+		        ${BENCH_NEO4J_ROOT}/bin/neo4j-admin import --nodes:Page "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_NODES}" --relationships:LINK "${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP_HEADER},${BENCH_NEO4J_ROOT}/import/${BENCH_NEO4J_RELATIONSHIP}" 
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
 			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX GraphLoader Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
 			${BENCH_NEO4J_ROOT}/bin/neo4j start
 			
 			# Pause for a few seconds to give time Neo4J to prepare.
-			sleep 10
+			sleep 40
 			
 			# Run Pagerank algorithm.
 	    		BENCH_START_TIME=$(($(date +%s%N)/1000000))
-			cat $BENCH_SCRIPTS_DIR/cypher/${BENCH_ALGORITHM}.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
+			cat $BENCH_SCRIPTS_DIR/cypher/${BENCH_NEO4J_CYPHER_FILE} | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD}
 			BENCH_END_TIME=$(($(date +%s%N)/1000000))
 			BENCH_TOTAL_TIME=$(echo "scale=3; $(($BENCH_END_TIME - $BENCH_START_TIME)) / 1000" | bc)
 			echo "${BENCH_ALGORITHM} ${LOOP_PART} $LOOP_INDEX Computation Total:  $BENCH_TOTAL_TIME" >> $BENCH_LOGS_DIR/${BENCH_ENGINE}_${BENCH_ALGORITHM}_Log.log
@@ -666,7 +668,7 @@ LOOP_ITERATIONS=$(($BENCH_WARMUP+$BENCH_ITERATIONS))
 			
 			# Pause for a few seconds to give time Neo4J to prepare.
 			sleep 10
-			cat $BENCH_SCRIPTS_DIR/cypher/${BENCH_ALGORITHM}.cql | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
+			cat $BENCH_SCRIPTS_DIR/cypher/${BENCH_NEO4J_CYPHER_FILE} | ${BENCH_NEO4J_ROOT}/bin/cypher-shell -u ${BENCH_NEO4J_SHELL_USERNAME} -p ${BENCH_NEO4J_SHELL_PASSWORD} 
 	fi
   rc=$?
   echo "Returncode: $rc"

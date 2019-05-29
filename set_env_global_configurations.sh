@@ -54,7 +54,10 @@ export BENCH_SPARK_OUTPUT_TXT=
 
 export BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 export BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
-export BENCH_SPARK_HDFS_MASTER_URL=hdfs://cloud-11:44000
+
+# Set BENCH_SPARK_OUTPUT same as BENCH_SPARK_OUTPUT_TXT when you use TXT file. 
+# Set BENCH_SPARK_OUTPUT=hdfs://SERVER:PORT/BENCH_SPARK_OUTPUT_HDFS when using HDFS.
+export BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
 
 # ---------------------------------------------------------------------------
 # PageRank algorithm default settings in Spark.
@@ -91,7 +94,7 @@ export BENCH_SPARK_PAGERANK_ITERATIONS=
 # ---------------------------------------------------------------------------
 
 # Path of the root installation folder of Neo4J. Place the path of one level up from the bin folder.
-export BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+export BENCH_NEO4J_ROOT=/data/users/todi_thanasi/neo4j-community-3.5.3
 
 # Username and password to access Neo4J shell.
 export BENCH_NEO4J_SHELL_USERNAME=neo4j

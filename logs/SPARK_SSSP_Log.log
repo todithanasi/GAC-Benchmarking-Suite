@@ -3,7 +3,7 @@ BENCH_ALGORITHM=SSSP
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=3
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -22,33 +22,51 @@ BENCH_NEO4J_SHELL_PASSWORD=master2019
 BENCH_NEO4J_SHELL_USERNAME=neo4j
 BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
 BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
 BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
 BENCH_SPARK_NUM_EXECUTORS=16
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
+BENCH_WARMUP=1
 *******************************************************************************
-STARTING Time:  Mon Apr 29 02:04:16 CEST 2019
+STARTING Time:  Mon May  6 18:32:25 CEST 2019
 -------------------------------------------------------------------------------
+SSSP Warmup 1
+SSSP START - context: 1.743
+SSSP GraphLoader: 131.99
+SSSP method: 169.95
+SSSP - Collect Data method: 3.439
 SSSP Iteration 1
-SSSP START - context: 1.701
-SSSP GraphLoader: 115.344
-SSSP method: 20.634
-SSSP - Collect Data method: 1.562
+SSSP START - context: 1.677
+SSSP GraphLoader: 129.593
+SSSP method: 153.883
+SSSP - Collect Data method: 3.855
+SSSP Iteration 2
+SSSP START - context: 1.674
+SSSP GraphLoader: 157.817
+SSSP method: 175.149
+SSSP - Collect Data method: 3.853
+SSSP Iteration 3
+SSSP START - context: 1.674
+SSSP GraphLoader: 129.139
+SSSP method: 224.423
+SSSP - Collect Data method: 3.349
 *******************************************************************************
 BENCH_ALGORITHM=SSSP
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=0
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -67,33 +85,36 @@ BENCH_NEO4J_SHELL_PASSWORD=master2019
 BENCH_NEO4J_SHELL_USERNAME=neo4j
 BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
 BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/web-Google.txt
 BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
 BENCH_SPARK_NUM_EXECUTORS=8
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
+BENCH_WARMUP=1
 *******************************************************************************
-STARTING Time:  Mon Apr 29 02:08:32 CEST 2019
+STARTING Time:  Tue May  7 07:43:11 CEST 2019
 -------------------------------------------------------------------------------
-SSSP Iteration 1
-SSSP START - context: 1.75
-SSSP GraphLoader: 110.464
-SSSP method: 29.568
-SSSP - Collect Data method: 1.869
+SSSP Warmup 1
+SSSP START - context: 1.754
+SSSP GraphLoader: 18.765
+SSSP method: 32.514
+SSSP - Collect Data method: 1.244
 *******************************************************************************
 BENCH_ALGORITHM=SSSP
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=2
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -112,33 +133,89 @@ BENCH_NEO4J_SHELL_PASSWORD=master2019
 BENCH_NEO4J_SHELL_USERNAME=neo4j
 BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
 BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
 BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
+BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
+BENCH_SPARK_NUM_EXECUTORS=8
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
+BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
+BENCH_WARMUP=0
+*******************************************************************************
+STARTING Time:  Tue May  7 07:45:39 CEST 2019
+-------------------------------------------------------------------------------
+SSSP Iteration 1
+SSSP START - context: 1.66
+SSSP GraphLoader: 219.165
+SSSP method: 4138.606
+SSSP - Collect Data method: 5.973
+SSSP Iteration 2
+SSSP START - context: 1.649
+SSSP GraphLoader: 219.696
+SSSP method: 5336.314
+SSSP - Collect Data method: 4.212
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
+BENCH_ENGINE=SPARK
+BENCH_ITERATIONS=0
+BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/web-Google.txt
+BENCH_SPARK_DRIVER_CORES=10
+BENCH_SPARK_DRIVER_MEMORY=20G
+BENCH_SPARK_EXECUTOR_CORES=15
+BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
 BENCH_SPARK_NUM_EXECUTORS=4
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
+BENCH_WARMUP=1
 *******************************************************************************
-STARTING Time:  Mon Apr 29 02:12:00 CEST 2019
+STARTING Time:  Wed May  8 12:32:56 CEST 2019
 -------------------------------------------------------------------------------
-SSSP Iteration 1
-SSSP START - context: 1.764
-SSSP GraphLoader: 107.244
-SSSP method: 21.324
-SSSP - Collect Data method: 1.864
+SSSP Warmup 1
+SSSP START - context: 1.733
+SSSP GraphLoader: 19.646
+SSSP method: 32.598
+SSSP - Collect Data method: 1.317
 *******************************************************************************
 BENCH_ALGORITHM=SSSP
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=2
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -157,33 +234,41 @@ BENCH_NEO4J_SHELL_PASSWORD=master2019
 BENCH_NEO4J_SHELL_USERNAME=neo4j
 BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
 BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
 BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=2
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_NUM_EXECUTORS=4
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
 BENCH_WARMUP=0
 *******************************************************************************
-STARTING Time:  Mon Apr 29 02:15:13 CEST 2019
+STARTING Time:  Wed May  8 12:34:32 CEST 2019
 -------------------------------------------------------------------------------
 SSSP Iteration 1
-SSSP START - context: 1.764
-SSSP GraphLoader: 103.909
-SSSP method: 20.385
-SSSP - Collect Data method: 1.625
+SSSP START - context: 1.681
+SSSP GraphLoader: 361.243
+SSSP method: 21172.625
+SSSP - Collect Data method: 4.129
+SSSP Iteration 2
+SSSP START - context: 1.687
+SSSP GraphLoader: 342.864
+SSSP method: 21058.667
+SSSP - Collect Data method: 4.039
 *******************************************************************************
 BENCH_ALGORITHM=SSSP
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=3
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -202,24 +287,259 @@ BENCH_NEO4J_SHELL_PASSWORD=master2019
 BENCH_NEO4J_SHELL_USERNAME=neo4j
 BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
 BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/web-Google.txt
 BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=1
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_NUM_EXECUTORS=16
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
+BENCH_WARMUP=1
 *******************************************************************************
-STARTING Time:  Mon Apr 29 02:18:31 CEST 2019
+STARTING Time:  Sat May 11 09:44:03 CEST 2019
 -------------------------------------------------------------------------------
-SSSP Iteration 1
+SSSP Warmup 1
 SSSP START - context: 1.729
-SSSP GraphLoader: 100.115
-SSSP method: 20.873
-SSSP - Collect Data method: 1.79
+SSSP GraphLoader: 15.808
+SSSP method: 32.845
+SSSP - Collect Data method: 1.296
+SSSP Iteration 1
+SSSP START - context: 1.733
+SSSP GraphLoader: 16.086
+SSSP method: 32.352
+SSSP - Collect Data method: 1.091
+SSSP Iteration 2
+SSSP START - context: 1.677
+SSSP GraphLoader: 15.67
+SSSP method: 32.468
+SSSP - Collect Data method: 1.299
+SSSP Iteration 3
+SSSP START - context: 1.671
+SSSP GraphLoader: 15.871
+SSSP method: 31.481
+SSSP - Collect Data method: 1.246
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
+BENCH_ENGINE=SPARK
+BENCH_ITERATIONS=3
+BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
+BENCH_SPARK_DRIVER_CORES=10
+BENCH_SPARK_DRIVER_MEMORY=20G
+BENCH_SPARK_EXECUTOR_CORES=15
+BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
+BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
+BENCH_SPARK_NUM_EXECUTORS=16
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
+BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+STARTING Time:  Sat May 11 10:35:35 CEST 2019
+-------------------------------------------------------------------------------
+SSSP Warmup 1
+SSSP START - context: 1.742
+SSSP GraphLoader: 111.392
+SSSP method: 26.594
+SSSP - Collect Data method: 1.58
+SSSP Iteration 1
+SSSP START - context: 1.653
+SSSP GraphLoader: 106.973
+SSSP method: 26.889
+SSSP - Collect Data method: 1.643
+SSSP Iteration 2
+SSSP START - context: 1.691
+SSSP GraphLoader: 101.401
+SSSP method: 31.941
+SSSP - Collect Data method: 1.562
+SSSP Iteration 3
+SSSP START - context: 1.638
+SSSP GraphLoader: 113.616
+SSSP method: 23.585
+SSSP - Collect Data method: 1.755
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
+BENCH_ENGINE=SPARK
+BENCH_ITERATIONS=2
+BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out2.txt
+BENCH_SPARK_DRIVER_CORES=10
+BENCH_SPARK_DRIVER_MEMORY=20G
+BENCH_SPARK_EXECUTOR_CORES=15
+BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
+BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
+BENCH_SPARK_NUM_EXECUTORS=16
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
+BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
+BENCH_WARMUP=0
+*******************************************************************************
+STARTING Time:  Sat May 11 13:25:07 CEST 2019
+-------------------------------------------------------------------------------
+SSSP Iteration 1
+SSSP START - context: 1.719
+SSSP GraphLoader: 103.885
+SSSP method: 151.826
+SSSP - Collect Data method: 4.727
+SSSP Iteration 2
+SSSP START - context: 1.706
+SSSP GraphLoader: 102.193
+SSSP method: 137.581
+SSSP - Collect Data method: 4.49
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
+BENCH_ENGINE=SPARK
+BENCH_ITERATIONS=0
+BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/web-Google.txt
+BENCH_SPARK_DRIVER_CORES=10
+BENCH_SPARK_DRIVER_MEMORY=20G
+BENCH_SPARK_EXECUTOR_CORES=15
+BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
+BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
+BENCH_SPARK_NUM_EXECUTORS=8
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
+BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+STARTING Time:  Sat May 11 13:36:54 CEST 2019
+-------------------------------------------------------------------------------
+SSSP Warmup 1
+SSSP START - context: 1.722
+SSSP GraphLoader: 16.105
+SSSP method: 33.144
+SSSP - Collect Data method: 1.329
+*******************************************************************************
+BENCH_ALGORITHM=SSSP
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
+BENCH_ENGINE=SPARK
+BENCH_ITERATIONS=2
+BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out2.txt
+BENCH_SPARK_DRIVER_CORES=10
+BENCH_SPARK_DRIVER_MEMORY=20G
+BENCH_SPARK_EXECUTOR_CORES=15
+BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
+BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
+BENCH_SPARK_NUM_EXECUTORS=8
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
+BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
+BENCH_WARMUP=0
+*******************************************************************************
+STARTING Time:  Sat May 11 13:38:29 CEST 2019
+-------------------------------------------------------------------------------
+SSSP Iteration 1
+SSSP START - context: 1.688
+SSSP GraphLoader: 171.781
+SSSP method: 11142.298
+SSSP - Collect Data method: 5.113
+SSSP Iteration 2
+SSSP START - context: 1.755
+SSSP GraphLoader: 170.094
+SSSP method: 11095.536
+SSSP - Collect Data method: 5.01

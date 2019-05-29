@@ -15,8 +15,8 @@
 
 
 # All the below mentioned files should be located in the import folder of the Neo4J.
-neo4j.nodes.header=twitter-2010-out-header.txt
-neo4j.nodes=twitter-2010-out-nodes.txt
-neo4j.relationship.header=twitter-2010-out-relationship-header2.txt
-neo4j.relationship=twitter-2010-out-relationship-comma-SSSP.txt
-neo4j.cypher.file=SSSP_FILE.cql
+neo4j.nodes.header=com-orkut.ungraph-header.txt
+neo4j.nodes=com-orkut.ungraph-nodes.txt
+neo4j.relationship.header=com-orkut.ungraph-relationship-header.txt
+neo4j.relationship=com-orkut.ungraph-relationship-comma.txt
+neo4j.cypher.file=CC_FILE.cql

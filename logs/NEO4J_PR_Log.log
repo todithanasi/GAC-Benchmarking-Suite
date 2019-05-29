@@ -1,0 +1,44 @@
+*******************************************************************************
+BENCH_ALGORITHM=PR
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.neo4j.properties
+BENCH_ENGINE=NEO4J
+BENCH_ITERATIONS=1
+BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_NODES_HEADER=web-Google-header.txt 
+BENCH_NEO4J_NODES=web-Google-nodes.txt
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_RELATIONSHIP_HEADER=web-Google-relationship-header.txt
+BENCH_NEO4J_RELATIONSHIP=web-Google-relationship-comma.txt
+BENCH_NEO4J_ROOT=/data/users/todi_thanasi/neo4j-enterprise-3.1.2
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
+BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
+BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+STARTING Time:  Thu May 16 13:49:27 CEST 2019
+-------------------------------------------------------------------------------
+PR Warmup 1 GraphLoader Total:  6.145
+PR Warmup 1 Computation Total:  .659
+PR Iteration 1 GraphLoader Total:  6.356

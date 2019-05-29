@@ -3,435 +3,7 @@ BENCH_ALGORITHM=PR
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=/share/hadoop/todi_thanasi/datasets/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=5
-BENCH_SPARK_EXECUTOR_MEMORY=9G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=24
-BENCH_SPARK_OUTPUT=/share/hadoop/todi_thanasi/output
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=1
-*******************************************************************************
-STARTING Time:  Thu Apr 25 15:33:29 CEST 2019
--------------------------------------------------------------------------------
-PR Warmup 1
-PageRank START - context: 1.878
-PageRank GraphLoader: 35.695
-PageRank - staticPageRank method: 52.688
-PageRank - Collect Data method: 1.876
-PR Iteration 1
-PageRank START - context: 1.74
-PageRank GraphLoader: 29.018
-PageRank - staticPageRank method: 51.377
-PageRank - Collect Data method: 1.611
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=/share/hadoop/todi_thanasi/datasets/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=5
-BENCH_SPARK_EXECUTOR_MEMORY=9G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=21
-BENCH_SPARK_OUTPUT=/share/hadoop/todi_thanasi/output
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=1
-*******************************************************************************
-STARTING Time:  Thu Apr 25 15:38:18 CEST 2019
--------------------------------------------------------------------------------
-PR Warmup 1
-PageRank START - context: 1.739
-PageRank GraphLoader: 26.95
-PageRank - staticPageRank method: 55.535
-PageRank - Collect Data method: 1.665
-PR Iteration 1
-PageRank START - context: 1.754
-PageRank GraphLoader: 23.79
-PageRank - staticPageRank method: 81.346
-PageRank - Collect Data method: 2.417
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=/share/hadoop/todi_thanasi/datasets/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=5
-BENCH_SPARK_EXECUTOR_MEMORY=9G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=21
-BENCH_SPARK_OUTPUT=/share/hadoop/todi_thanasi/output
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=1
-*******************************************************************************
-STARTING Time:  Thu Apr 25 15:45:29 CEST 2019
--------------------------------------------------------------------------------
-PR Warmup 1
-PageRank START - context: 1.712
-PageRank GraphLoader: 25.976
-PageRank - staticPageRank method: 55.445
-PageRank - Collect Data method: 1.885
-PR Iteration 1
-PageRank START - context: 1.782
-PageRank GraphLoader: 24.751
-PageRank - staticPageRank method: 54.154
-PageRank - Collect Data method: 1.733
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=/share/hadoop/todi_thanasi/datasets/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=5
-BENCH_SPARK_EXECUTOR_MEMORY=9G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=21
-BENCH_SPARK_OUTPUT=/share/hadoop/todi_thanasi/output
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=1
-*******************************************************************************
-STARTING Time:  Thu Apr 25 15:49:34 CEST 2019
--------------------------------------------------------------------------------
-PR Warmup 1
-PageRank START - context: 1.753
-PageRank GraphLoader: 29.159
-PageRank - staticPageRank method: 58.553
-PageRank - Collect Data method: 1.695
-PR Iteration 1
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=/share/hadoop/todi_thanasi/datasets/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=5
-BENCH_SPARK_EXECUTOR_MEMORY=9G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=21
-BENCH_SPARK_OUTPUT=/share/hadoop/todi_thanasi/output
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=1
-*******************************************************************************
-STARTING Time:  Thu Apr 25 15:52:01 CEST 2019
--------------------------------------------------------------------------------
-PR Warmup 1
-PageRank START - context: 1.778
-PageRank GraphLoader: 30.613
-PageRank - staticPageRank method: 79.897
-PageRank - Collect Data method: 2.132
-PR Iteration 1
-PageRank START - context: 1.76
-PageRank GraphLoader: 30.634
-PageRank - staticPageRank method: 81.269
-PageRank - Collect Data method: 2.316
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=/share/hadoop/todi_thanasi/datasets/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=5
-BENCH_SPARK_EXECUTOR_MEMORY=9G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=21
-BENCH_SPARK_OUTPUT=/share/hadoop/todi_thanasi/output
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=1
-*******************************************************************************
-STARTING Time:  Thu Apr 25 16:00:13 CEST 2019
--------------------------------------------------------------------------------
-PR Warmup 1
-PageRank START - context: 1.708
-PageRank GraphLoader: 25.534
-PageRank - staticPageRank method: 51.483
-PageRank - Collect Data method: 1.729
-PR Iteration 1
-PageRank START - context: 1.721
-PageRank GraphLoader: 26.318
-PageRank - staticPageRank method: 57.567
-PageRank - Collect Data method: 1.739
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=/share/hadoop/todi_thanasi/datasets/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=5
-BENCH_SPARK_EXECUTOR_MEMORY=9G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=21
-BENCH_SPARK_OUTPUT=/share/hadoop/todi_thanasi/output
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=1
-*******************************************************************************
-STARTING Time:  Thu Apr 25 16:04:51 CEST 2019
--------------------------------------------------------------------------------
-PR Warmup 1
-PageRank START - context: 1.758
-PageRank GraphLoader: 28.053
-PageRank - staticPageRank method: 80.004
-PageRank - Collect Data method: 1.94
-PR Iteration 1
-PageRank START - context: 1.72
-PageRank GraphLoader: 27.036
-PageRank - staticPageRank method: 95.212
-PageRank - Collect Data method: 2.407
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://could-11.dima.tu-berlin.de:44000/user/hadoop/thanasi/twitter-2010-out.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=3
-BENCH_SPARK_OUTPUT=hdfs://cloud-11.dima.tu-berlin.de:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Sat Apr 27 10:57:20 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://could-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=3
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Sat Apr 27 11:03:09 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=3
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -455,28 +27,46 @@ BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=3
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_NUM_EXECUTORS=16
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
+BENCH_WARMUP=1
 *******************************************************************************
-STARTING Time:  Sat Apr 27 11:04:15 CEST 2019
+STARTING Time:  Mon May  6 17:12:35 CEST 2019
 -------------------------------------------------------------------------------
+PR Warmup 1
+PageRank START - context: 1.85
+PageRank GraphLoader: 134.865
+PageRank - staticPageRank method: 480.056
+PageRank - Collect Data method: 5.303
 PR Iteration 1
-PageRank START - context: 1.749
-PageRank GraphLoader: 587.648
-PageRank - staticPageRank method: 31700.423
-PageRank - Collect Data method: 6.53
+PageRank START - context: 1.692
+PageRank GraphLoader: 145.672
+PageRank - staticPageRank method: 805.707
+PageRank - Collect Data method: 4.452
+PR Iteration 2
+PageRank START - context: 1.659
+PageRank GraphLoader: 146.192
+PageRank - staticPageRank method: 451.637
+PageRank - Collect Data method: 4.533
+PR Iteration 3
+PageRank START - context: 1.741
+PageRank GraphLoader: 135.943
+PageRank - staticPageRank method: 482.831
+PageRank - Collect Data method: 4.434
 *******************************************************************************
 BENCH_ALGORITHM=PR
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=0
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -495,164 +85,36 @@ BENCH_NEO4J_SHELL_PASSWORD=master2019
 BENCH_NEO4J_SHELL_USERNAME=neo4j
 BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
 BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/web-Google.txt
 BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=3
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Sat Apr 27 20:53:07 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=4
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Sat Apr 27 20:54:20 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.786
-PageRank GraphLoader: 390.893
-PageRank - staticPageRank method: 24969.697
-PageRank - Collect Data method: 5.888
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=6
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Sun Apr 28 12:24:27 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.983
-PageRank GraphLoader: 259.726
-PageRank - staticPageRank method: 19472.851
-PageRank - Collect Data method: 5.347
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
 BENCH_SPARK_NUM_EXECUTORS=8
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
+BENCH_WARMUP=1
 *******************************************************************************
-STARTING Time:  Sun Apr 28 20:21:51 CEST 2019
+STARTING Time:  Mon May  6 18:57:00 CEST 2019
 -------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.756
-PageRank GraphLoader: 217.201
-PageRank - staticPageRank method: 7906.278
-PageRank - Collect Data method: 5.487
+PR Warmup 1
+PageRank START - context: 1.747
+PageRank GraphLoader: 16.113
+PageRank - staticPageRank method: 28.275
+PageRank - Collect Data method: 1.816
 *******************************************************************************
 BENCH_ALGORITHM=PR
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=2
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -676,24 +138,200 @@ BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
+BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
+BENCH_SPARK_NUM_EXECUTORS=8
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
+BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
+BENCH_WARMUP=0
+*******************************************************************************
+STARTING Time:  Mon May  6 19:00:22 CEST 2019
+-------------------------------------------------------------------------------
+PR Iteration 1
+PageRank START - context: 1.662
+PageRank GraphLoader: 218.637
+PageRank - staticPageRank method: 7102.033
+PageRank - Collect Data method: 5.419
+PR Iteration 2
+PageRank START - context: 1.683
+PageRank GraphLoader: 203.676
+PageRank - staticPageRank method: 6952.669
+PageRank - Collect Data method: 6.357
+*******************************************************************************
+BENCH_ALGORITHM=PR
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
+BENCH_ENGINE=SPARK
+BENCH_ITERATIONS=0
+BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/web-Google.txt
+BENCH_SPARK_DRIVER_CORES=10
+BENCH_SPARK_DRIVER_MEMORY=20G
+BENCH_SPARK_EXECUTOR_CORES=15
+BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
+BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
+BENCH_SPARK_NUM_EXECUTORS=4
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
+BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
+BENCH_WARMUP=1
+*******************************************************************************
+STARTING Time:  Tue May  7 19:32:49 CEST 2019
+-------------------------------------------------------------------------------
+PR Warmup 1
+PageRank START - context: 1.929
+PageRank GraphLoader: 17.251
+PageRank - staticPageRank method: 27.396
+PageRank - Collect Data method: 2.057
+*******************************************************************************
+BENCH_ALGORITHM=PR
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
+BENCH_ENGINE=SPARK
+BENCH_ITERATIONS=2
+BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
+BENCH_SPARK_DRIVER_CORES=10
+BENCH_SPARK_DRIVER_MEMORY=20G
+BENCH_SPARK_EXECUTOR_CORES=15
+BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
+BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
+BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
+BENCH_SPARK_NUM_EXECUTORS=4
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
+BENCH_SPARK_PAGERANK_ITERATIONS=
+BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
+BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
+BENCH_WARMUP=0
+*******************************************************************************
+STARTING Time:  Tue May  7 19:34:21 CEST 2019
+-------------------------------------------------------------------------------
+PR Iteration 1
+PageRank START - context: 1.69
+PageRank GraphLoader: 363.196
+PageRank - staticPageRank method: 24888.948
+PageRank - Collect Data method: 6.097
+PR Iteration 2
+PageRank START - context: 1.648
+PageRank GraphLoader: 359.207
+PageRank - staticPageRank method: 24644.085
+PageRank - Collect Data method: 5.96
+*******************************************************************************
+BENCH_ALGORITHM=PR
+BENCH_BENCHMARKING=1
+BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
+BENCH_ENGINE=SPARK
+BENCH_ITERATIONS=3
+BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
+BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
+BENCH_MARIADBCOL_DATABASE_NAME=graph
+BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADBCOL_ROOT=/usr/sbin/
+BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADBCOL_SHELL_USERNAME=user2
+BENCH_MARIADB_DATABASE_NAME=Graph
+BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
+BENCH_MARIADB_ROOT=/usr/sbin/
+BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
+BENCH_MARIADB_SHELL_USERNAME=user2
+BENCH_NEO4J_PAGERANK_ITERATIONS=10
+BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
+BENCH_NEO4J_SHELL_PASSWORD=master2019
+BENCH_NEO4J_SHELL_USERNAME=neo4j
+BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
+BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/web-Google.txt
+BENCH_SPARK_DRIVER_CORES=10
+BENCH_SPARK_DRIVER_MEMORY=20G
+BENCH_SPARK_EXECUTOR_CORES=15
+BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
 BENCH_SPARK_NUM_EXECUTORS=16
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
+BENCH_WARMUP=1
 *******************************************************************************
-STARTING Time:  Sun Apr 28 23:03:46 CEST 2019
+STARTING Time:  Sat May 11 09:24:51 CEST 2019
 -------------------------------------------------------------------------------
+PR Warmup 1
+PageRank START - context: 1.75
+PageRank GraphLoader: 16.224
+PageRank - staticPageRank method: 26.604
+PageRank - Collect Data method: 1.677
 PR Iteration 1
+PageRank START - context: 1.724
+PageRank GraphLoader: 16.01
+PageRank - staticPageRank method: 27.853
+PageRank - Collect Data method: 2.03
+PR Iteration 2
+PageRank START - context: 1.654
+PageRank GraphLoader: 16.416
+PageRank - staticPageRank method: 28.71
+PageRank - Collect Data method: 1.873
+PR Iteration 3
+PageRank START - context: 1.696
+PageRank GraphLoader: 15.494
+PageRank - staticPageRank method: 28.903
+PageRank - Collect Data method: 2.026
 *******************************************************************************
 BENCH_ALGORITHM=PR
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=3
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -712,33 +350,51 @@ BENCH_NEO4J_SHELL_PASSWORD=master2019
 BENCH_NEO4J_SHELL_USERNAME=neo4j
 BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
 BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
 BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
 BENCH_SPARK_NUM_EXECUTORS=16
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
+BENCH_WARMUP=1
 *******************************************************************************
-STARTING Time:  Sun Apr 28 23:04:59 CEST 2019
+STARTING Time:  Sat May 11 10:06:17 CEST 2019
 -------------------------------------------------------------------------------
+PR Warmup 1
+PageRank START - context: 1.673
+PageRank GraphLoader: 103.668
+PageRank - staticPageRank method: 101.145
+PageRank - Collect Data method: 3.124
 PR Iteration 1
-PageRank START - context: 1.882
-PageRank GraphLoader: 137.45
-PageRank - staticPageRank method: 649.987
-PageRank - Collect Data method: 4.339
+PageRank START - context: 1.627
+PageRank GraphLoader: 105.175
+PageRank - staticPageRank method: 91.416
+PageRank - Collect Data method: 2.165
+PR Iteration 2
+PageRank START - context: 1.681
+PageRank GraphLoader: 106.422
+PageRank - staticPageRank method: 104.079
+PageRank - Collect Data method: 2.742
+PR Iteration 3
+PageRank START - context: 1.656
+PageRank GraphLoader: 94.294
+PageRank - staticPageRank method: 107.679
+PageRank - Collect Data method: 2.298
 *******************************************************************************
 BENCH_ALGORITHM=PR
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=2
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -757,78 +413,41 @@ BENCH_NEO4J_SHELL_PASSWORD=master2019
 BENCH_NEO4J_SHELL_USERNAME=neo4j
 BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
 BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out2.txt
 BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=15
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_NUM_EXECUTORS=8
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
 BENCH_WARMUP=0
 *******************************************************************************
-STARTING Time:  Sun Apr 28 23:22:15 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.8
-PageRank GraphLoader: 127.741
-PageRank - staticPageRank method: 438.101
-PageRank - Collect Data method: 5.217
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=14
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Sun Apr 28 23:37:10 CEST 2019
+STARTING Time:  Sat May 11 20:00:48 CEST 2019
 -------------------------------------------------------------------------------
 PR Iteration 1
 PageRank START - context: 1.693
-PageRank GraphLoader: 133.936
-PageRank - staticPageRank method: 999.914
-PageRank - Collect Data method: 7.961
+PageRank GraphLoader: 169.188
+PageRank - staticPageRank method: 17193.995
+PageRank - Collect Data method: 5.877
+PR Iteration 2
+PageRank START - context: 1.738
+PageRank GraphLoader: 173.287
+PageRank - staticPageRank method: 17446.585
+PageRank - Collect Data method: 6.791
 *******************************************************************************
 BENCH_ALGORITHM=PR
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=0
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -847,393 +466,36 @@ BENCH_NEO4J_SHELL_PASSWORD=master2019
 BENCH_NEO4J_SHELL_USERNAME=neo4j
 BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
 BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
+BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/web-Google.txt
 BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=13
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_NUM_EXECUTORS=16
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
+BENCH_WARMUP=1
 *******************************************************************************
-STARTING Time:  Mon Apr 29 00:00:28 CEST 2019
+STARTING Time:  Sun May 12 09:46:35 CEST 2019
 -------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.727
-PageRank GraphLoader: 136.88
-PageRank - staticPageRank method: 1004.6
-PageRank - Collect Data method: 7.32
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=12
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 00:21:31 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.809
-PageRank GraphLoader: 177.699
-PageRank - staticPageRank method: 415.762
-PageRank - Collect Data method: 5.258
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=12
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 00:57:51 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.777
-PageRank GraphLoader: 105.775
-PageRank - staticPageRank method: 109.927
-PageRank - Collect Data method: 2.055
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=10
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 01:04:12 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.706
-PageRank GraphLoader: 108.295
-PageRank - staticPageRank method: 94.767
-PageRank - Collect Data method: 1.955
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=8
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 01:08:54 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.73
-PageRank GraphLoader: 108.45
-PageRank - staticPageRank method: 98.402
-PageRank - Collect Data method: 1.977
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=6
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 01:15:43 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
+PR Warmup 1
 PageRank START - context: 1.718
-PageRank GraphLoader: 124.995
-PageRank - staticPageRank method: 95.431
-PageRank - Collect Data method: 1.883
+PageRank GraphLoader: 16.131
+PageRank - staticPageRank method: 27.037
+PageRank - Collect Data method: 1.597
 *******************************************************************************
 BENCH_ALGORITHM=PR
 BENCH_BENCHMARKING=1
 BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
 BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=4
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 01:20:40 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.708
-PageRank GraphLoader: 120.461
-PageRank - staticPageRank method: 107.428
-PageRank - Collect Data method: 2.835
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=2
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 01:27:52 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.73
-PageRank GraphLoader: 111.073
-PageRank - staticPageRank method: 98.141
-PageRank - Collect Data method: 1.939
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/com-orkut.ungraph.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=1
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 01:33:15 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.739
-PageRank GraphLoader: 117.864
-PageRank - staticPageRank method: 99.924
-PageRank - Collect Data method: 2.143
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
+BENCH_ITERATIONS=2
 BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
 BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
 BENCH_MARIADBCOL_DATABASE_NAME=graph
@@ -1257,330 +519,27 @@ BENCH_SPARK_DRIVER_CORES=10
 BENCH_SPARK_DRIVER_MEMORY=20G
 BENCH_SPARK_EXECUTOR_CORES=15
 BENCH_SPARK_EXECUTOR_MEMORY=21G
+BENCH_SPARK_HDFS_ROOT=/share/hadoop/stable/hadoop-2.7.1
 BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
 BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=12
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
+BENCH_SPARK_NUM_EXECUTORS=16
+BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_HDFS=/user/hadoop/thanasi
+BENCH_SPARK_OUTPUT_TXT=
 BENCH_SPARK_PAGERANK_ITERATIONS=
 BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
 BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
 BENCH_WARMUP=0
 *******************************************************************************
-STARTING Time:  Mon Apr 29 13:00:32 CEST 2019
+STARTING Time:  Sun May 12 09:47:58 CEST 2019
 -------------------------------------------------------------------------------
 PR Iteration 1
-PageRank START - context: 1.703
-PageRank GraphLoader: 132.804
-PageRank - staticPageRank method: 281.625
-PageRank - Collect Data method: 5.779
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out2.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=6
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 13:26:14 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.709
-PageRank GraphLoader: 208.452
-PageRank - staticPageRank method: 20885.356
-PageRank - Collect Data method: 5.731
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out2.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=8
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Mon Apr 29 21:04:52 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.747
-PageRank GraphLoader: 176.816
-PageRank - staticPageRank method: 18523.154
-PageRank - Collect Data method: 5.936
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out2.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=10
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Tue Apr 30 07:24:14 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.788
-PageRank GraphLoader: 144.38
-PageRank - staticPageRank method: 789.647
-PageRank - Collect Data method: 10.851
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out2.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=12
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Tue Apr 30 09:15:07 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.745
-PageRank GraphLoader: 117.697
-PageRank - staticPageRank method: 307.519
-PageRank - Collect Data method: 5.706
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out2.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=14
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Tue Apr 30 09:24:24 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.757
-PageRank GraphLoader: 108.92
-PageRank - staticPageRank method: 347.052
-PageRank - Collect Data method: 6.848
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=4
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Tue Apr 30 09:36:19 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
-PageRank START - context: 1.754
-PageRank GraphLoader: 353.381
-PageRank - staticPageRank method: 24756.428
-PageRank - Collect Data method: 6.075
-*******************************************************************************
-BENCH_ALGORITHM=PR
-BENCH_BENCHMARKING=1
-BENCH_DATASET_PROPERTIES_FILE=/share/hadoop/todi_thanasi/Benchmarking-Scripts/templates/dataset.spark.properties
-BENCH_ENGINE=SPARK
-BENCH_ITERATIONS=1
-BENCH_LOGS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/logs
-BENCH_MARIADBCOL_CPIMPORT=/usr/local/mariadb/columnstore/bin/cpimport
-BENCH_MARIADBCOL_DATABASE_NAME=graph
-BENCH_MARIADBCOL_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADBCOL_ROOT=/usr/sbin/
-BENCH_MARIADBCOL_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADBCOL_SHELL_USERNAME=user2
-BENCH_MARIADB_DATABASE_NAME=Graph
-BENCH_MARIADB_MYSQL=/usr/local/mariadb/columnstore/mysql/bin/mysql --defaults-extra-file=/usr/local/mariadb/columnstore/mysql/my.cnf
-BENCH_MARIADB_ROOT=/usr/sbin/
-BENCH_MARIADB_SHELL_PASSWORD=p@$$w0rd
-BENCH_MARIADB_SHELL_USERNAME=user2
-BENCH_NEO4J_PAGERANK_ITERATIONS=10
-BENCH_NEO4J_ROOT=/home/bdm/SDM-Software/neo4j-community-3.5.3
-BENCH_NEO4J_SHELL_PASSWORD=master2019
-BENCH_NEO4J_SHELL_USERNAME=neo4j
-BENCH_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts
-BENCH_SHELL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/scripts
-BENCH_SPARK_DATASET=hdfs://cloud-11:44000/user/hadoop/thanasi/twitter-2010-out.txt
-BENCH_SPARK_DRIVER_CORES=10
-BENCH_SPARK_DRIVER_MEMORY=20G
-BENCH_SPARK_EXECUTOR_CORES=15
-BENCH_SPARK_EXECUTOR_MEMORY=21G
-BENCH_SPARK_JAR=/share/hadoop/todi_thanasi/GraphX/sourcecode_2.11-0.1.jar
-BENCH_SPARK_MASTER_URL=spark://cloud-11.dima.tu-berlin.de:7077
-BENCH_SPARK_NUM_EXECUTORS=2
-BENCH_SPARK_OUTPUT=hdfs://cloud-11:44000/user/hadoop/thanasi/
-BENCH_SPARK_PAGERANK_ITERATIONS=
-BENCH_SPARK_ROOT=/share/hadoop/todi_thanasi/spark-2.4.2-bin-hadoop2.7
-BENCH_SQL_SCRIPTS_DIR=/share/hadoop/todi_thanasi/Benchmarking-Scripts/sql
-BENCH_WARMUP=0
-*******************************************************************************
-STARTING Time:  Tue Apr 30 16:59:02 CEST 2019
--------------------------------------------------------------------------------
-PR Iteration 1
+PageRank START - context: 1.655
+PageRank GraphLoader: 107.876
+PageRank - staticPageRank method: 198.736
+PageRank - Collect Data method: 5.324
+PR Iteration 2
+PageRank START - context: 1.658
+PageRank GraphLoader: 101.505
+PageRank - staticPageRank method: 214.938
+PageRank - Collect Data method: 5.389
