@@ -3,7 +3,7 @@ GAC is a scripting benchmarking suite created as part of my master thesis work. 
 
 ``start_benchmarking.sh`` it is the main file to start the scripts. Inside the file there is documentation in how to use it and the parameters to pass. 
 
-# GAC Benchmarking Suite<span id="cha:chapter4" label="cha:chapter4">\[cha:chapter4\]</span>
+# GAC Benchmarking Suite
 
 GAC Benchmarking Suite follows a modular software design and has several
 modules. The main reasons for using a modular architecture are to
@@ -20,11 +20,11 @@ interoperability. We explain in this section the components of each
 module and their functionality.
 
 ![The system architecture overview of the GAC Benchmarking
-Suite](img/GAC_Architecture.png)  
+Suite](GAC_Architecture.png)  
 
 <span id="fig:GAC_Architecture" label="fig:GAC_Architecture">\[fig:GAC\_Architecture\]</span>
 
-## Data Module<span id="sec:DataModule" label="sec:DataModule">\[sec:DataModule\]</span>
+## Data Module
 
 Data Module has two main components: Dataset Converter and the Data
 Integration Component. **The Dataset Converter Component** provides some
@@ -45,7 +45,7 @@ the data in the expected format (such as HDFS files, CSV, txt) for the
 underlying engine and (2) loading the datasets in the respective engine
 part of the testing experiment.
 
-## Query Module<span id="sec:QueryModule" label="sec:QueryModule">\[sec:QueryModule\]</span>
+## Query Module
 
 GAC supports several engines like relational row store and column store,
 graph store, and dataflow engines. These engines come with different
@@ -56,7 +56,7 @@ a few scripts to map the different algorithms in different languages
 like Cypher (in the case of the Neo4J database) and SQL (in the case of
 the relational databases).
 
-# SUT Tuning Module<span id="sec:OptimizationModule" label="sec:OptimizationModule">\[sec:OptimizationModule\]</span>
+## SUT Tuning Module
 
 The SUT Tuning Module plays an essential role in the GAC Benchmarking
 Suite because it provides crucial optimizations to leverage full power
@@ -81,7 +81,7 @@ not apply to every engine, but we use them when it is possible. The
 above optimizations emphasize the importance of this module in providing
 a fair comparison between engines.
 
-# Utility Module<span id="sec:UtilityModule" label="sec:UtilityModule">\[sec:UtilityModule\]</span>
+## Utility Module
 
 The GAC Benchmarking offers the possibility to compare several engines,
 which means the existence of heterogeneity in the log file formats and
@@ -113,7 +113,7 @@ are both provided in the form of property files or as parameters. The
 parses check the validity of the settings and transform them into the
 appropriate format for the module that is going to use them.
 
-# Engine Module<span id="sec:EngineModule" label="sec:EngineModule">\[sec:EngineModule\]</span>
+## Engine Module
 
 The Engine Module has only one component named System Configurator in
 the actual version of the software. The System Configurator Component is
@@ -124,7 +124,7 @@ monitors the status of the engine. The Engine Module expects that the
 engines are already present in the servers and it relies on the settings
 configuration to propagate and apply the changes in the engines.
 
-# Core Module<span id="sec:CoreModule" label="sec:CoreModule">\[sec:CoreModule\]</span>
+## Core Module
 
 The Core Module is the brain of the GAC Benchmarking Suite because it is
 orchestrating and interacting with the other modules during the
